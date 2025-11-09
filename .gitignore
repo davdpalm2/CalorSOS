@@ -1,5 +1,6 @@
 # Entorno Virtual
 env/
+*.env
 
 # Logs
 logs
