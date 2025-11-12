@@ -7,7 +7,7 @@ env/
 venv/
 .venv/
 ENV/
-
+*.env
 # Archivos de variables de entorno
 .env
 .env.*
