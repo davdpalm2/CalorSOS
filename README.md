@@ -1,13 +1,16 @@
 # 🌡️ CalorSOS API Backend
 
 ## 🚀 Descripción
+
 **CalorSOS** es una API (POR EL MOMENTO API) desarrollada en **FastAPI** para la gestión de información relacionada con puntos de hidratación, zonas frescas, reportes de calor y alertas climáticas.  
 El sistema está completamente integrado con **Supabase** como base de datos y utiliza **JWT** para autenticación y control de roles (usuario / administrador).
 
 ---
 
 ## 🧱 Estructura del Proyecto
+
 ```
+
 CALORSOS-APP/
 │
 ├── .venv/                      # 💡 Entorno virtual de Python (no se sube a GitHub)
@@ -75,6 +78,7 @@ cd CalorSOS-App
 ```
 
 ### 2️⃣ Crear entorno virtual
+
 ```bash
 python -m venv .venv
 source .venv/bin/activate     # En Linux/Mac
@@ -82,11 +86,13 @@ source .venv/bin/activate     # En Linux/Mac
 ```
 
 ### 3️⃣ Instalar dependencias
+
 ```bash
 pip install -r requirements.txt
 ```
 
 ### 4️⃣ Crear archivo `.env` en la raíz
+
 ```env
 SUPABASE_URL=tu_supabase_url
 SUPABASE_KEY=tu_supabase_key
@@ -94,18 +100,21 @@ JWT_SECRET=tu_clave_secreta_segura
 ```
 
 ### 5️⃣ Ejecutar el servidor
+
 ```bash
 uvicorn backend.app.main:app --reload --port 8000
 ```
 
 ### 6️⃣ Abrir la documentación interactiva
+
 👉 [http://127.0.0.1:8000/docs](http://127.0.0.1:8000/docs)
 
 ---
 
 ## 🔐 Autenticación JWT
 
-### Flujo de autenticación:
+### Flujo de autenticación
+
 1. Registrar usuario → `/usuarios/register`
 2. Iniciar sesión → `/usuarios/login`
 3. Copiar el token JWT recibido
@@ -125,6 +134,7 @@ uvicorn backend.app.main:app --reload --port 8000
 ## 📡 Endpoints Principales
 
 ### 👤 Usuarios
+
 | Método | Ruta | Acceso |
 |--------|------|--------|
 | POST | `/usuarios/register` | Público |
@@ -135,6 +145,7 @@ uvicorn backend.app.main:app --reload --port 8000
 | DELETE | `/usuarios/{id}` | Admin|
 
 ### 💧 Puntos de Hidratación
+
 | Método | Ruta | Acceso |
 |--------|------|--------|
 | POST | `/puntos_hidratacion/` | Token |
@@ -143,6 +154,7 @@ uvicorn backend.app.main:app --reload --port 8000
 | DELETE | `/puntos_hidratacion/{id}` | Admin |
 
 ### 🌳 Zonas Frescas
+
 | Método | Ruta | Acceso |
 |--------|------|--------|
 | POST | `/zonas_frescas/` | Token |
@@ -151,6 +163,7 @@ uvicorn backend.app.main:app --reload --port 8000
 | DELETE | `/zonas_frescas/{id}` | Admin |
 
 ### ☀️ Alertas de Calor
+
 | Método | Ruta | Acceso |
 |--------|------|--------|
 | GET | `/alertas_calor/` | Público |
@@ -158,6 +171,7 @@ uvicorn backend.app.main:app --reload --port 8000
 | DELETE | `/alertas_calor/{id}` | Admin |
 
 ### 🔔 Notificaciones
+
 | Método | Ruta | Acceso |
 |--------|------|--------|
 | POST | `/notificaciones/` | Admin |
@@ -166,6 +180,7 @@ uvicorn backend.app.main:app --reload --port 8000
 | DELETE | `/notificaciones/{id}` | Admin |
 
 ### 🧠 Administración
+
 | Método | Ruta | Acceso |
 |--------|------|--------|
 | PUT | `/admin/validar_reporte/{id}` | Admin |
@@ -174,6 +189,7 @@ uvicorn backend.app.main:app --reload --port 8000
 ---
 
 ## 🧩 Dependencias principales
+
 - **FastAPI** — Framework backend
 - **Uvicorn** — Servidor ASGI
 - **Supabase-py** — Conexión con Supabase
@@ -183,6 +199,61 @@ uvicorn backend.app.main:app --reload --port 8000
 ---
 
 ## 🧠 Desarrollado por
+
 👤 **Dago David Palmera Navarro**  
 💻 Proyecto académico – Ingeniería de Sistemas  
 📆 Año: 2025  
+
+---
+
+## ESTRUCTURA FRONTEND
+
+```
+
+frontend/
+│
+├── node_modules/
+├── public/
+│
+├── src/
+│   ├── assets/                 # Recursos locales (SVG, fuentes, estilos globales)
+│   │   ├── logo.svg
+│   │   └── styles/
+│   │       └── global.css
+│   │
+│   ├── components/             # Componentes reutilizables (UI)
+│   │   ├── Navbar.jsx
+│   │   ├── Footer.jsx
+│   │   ├── AlertCard.jsx       # Tarjeta de alerta climática
+│   │   ├── ReportButton.jsx    # Botón flotante para reportes
+│   │   └── Loader.jsx          # Indicador de carga
+│   │
+│   ├── pages/                  # Vistas completas (pantallas)
+│   │   ├── Home.jsx            # Página principal con el mapa
+│   │   ├── Reportes.jsx        # Página para enviar/ver reportes
+│   │   ├── ZonasFrescas.jsx    # Página para ver zonas frescas
+│   │   └── Perfil.jsx          # Perfil de usuario / login
+│   │
+│   ├── services/               # Lógica para conectar con el backend
+│   │   ├── api.js              # Configuración de axios
+│   │   ├── puntosService.js    # Funciones para puntos de hidratación
+│   │   ├── zonasService.js     # Funciones para zonas frescas
+│   │   └── reportesService.js  # Funciones para reportes
+│   │
+│   ├── hooks/                  # Hooks personalizados (ej: useGeolocalizacion)
+│   │   └── useGeolocation.js
+│   │
+│   ├── context/                # Contextos globales (usuario, alertas, etc.)
+│   │   └── UserContext.jsx
+│   │
+│   ├── router/                 # Configuración de rutas con React Router
+│   │   └── AppRouter.jsx
+│   │
+│   ├── App.jsx                 # Componente raíz
+│   └── main.jsx                # Punto de entrada de React
+│
+├── index.html
+├── package.json
+├── package-lock.json
+└── vite.config.js
+```
