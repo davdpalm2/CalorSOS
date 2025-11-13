@@ -3,7 +3,7 @@ import axios from "axios";
 
 // URL base del backend
 const API = axios.create({
-  baseURL: "http://localhost:8000", // cámbialo según despliegue
+  baseURL: "http://localhost:8000", // se cambia según despliegue
 });
 
 // Interceptor para añadir token JWT automáticamente
