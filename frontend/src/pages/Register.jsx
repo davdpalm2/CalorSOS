@@ -1,8 +1,8 @@
 // src/pages/Register.jsx
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Loader from "../components/Loader.jsx";
-import logo from "../assets/logo.svg";
+import Loader from "../components/common/Loader.jsx";
+import logo from "../assets/images/logo.svg";
 import { registerUser } from "../services/usuariosService.js";
 
 export default function Register() {
