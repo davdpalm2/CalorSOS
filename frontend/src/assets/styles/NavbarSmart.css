@@ -1,0 +1,230 @@
+/* GENERAL NAVBAR STYLE ------------------------------------- */
+.ns-header {
+  width: 100%;
+  max-width: 100%; /* Asegura que no exceda el ancho */
+  height: 65px;
+  background: #1f2532;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 25px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  box-sizing: border-box; /* ¡IMPORTANTE! Incluye padding en el cálculo del width */
+}
+
+/* LEFT SIDE */
+.ns-left {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+  flex-shrink: 0; /* Evita que se comprima demasiado */
+}
+
+.ns-logo-img {
+  height: 30px;
+}
+
+.ns-brand__title {
+  color: white;
+  font-size: 18px;
+  font-weight: 700;
+  margin-left: 6px;
+  white-space: nowrap; /* Evita que el texto se divida en varias líneas */
+}
+
+/* NAV LINKS ----------------------------------------------- */
+
+.ns-nav {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap; /* Permite que los links se ajusten si es necesario */
+}
+
+.ns-link {
+  color: #d9d9d9;
+  text-decoration: none;
+  font-size: 15px;
+  padding: 6px 4px;
+  position: relative;
+  transition: 0.25s;
+  white-space: nowrap; /* Mantiene el texto en una sola línea */
+}
+
+.ns-link:hover {
+  color: white;
+}
+
+/* Active page highlight */
+.ns-link.active {
+  color: #ff6b00;
+  font-weight: 700;
+}
+
+.ns-link.active::after {
+  content: "";
+  position: absolute;
+  bottom: -3px;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: #ff6b00;
+  border-radius: 2px;
+  animation: fadeDown 0.2s ease-out;
+}
+
+@keyframes fadeDown {
+  from { opacity: 0; transform: translateY(-3px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* RIGHT SIDE ----------------------------------------------- */
+.ns-right {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  flex-shrink: 0;
+}
+
+/* Mensaje de bienvenida */
+.ns-welcome-message {
+  color: white;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+/* Nombre de usuario destacado */
+.ns-username {
+  color: #ff6b00;
+  font-weight: 700;
+}
+
+/* AVATAR COMO BOTÓN */
+.ns-avatar-btn {
+  padding: 6px;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: 0.2s;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ns-avatar-btn:hover {
+  background: rgba(255, 107, 0, 0.15);
+}
+
+.ns-avatar {
+  width: 36px;
+  height: 36px;
+  background: #ff6b00;
+  color: white;
+  border-radius: 50%;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 17px;
+  box-shadow: 0 0 6px rgba(255, 107, 0, 0.4);
+}
+
+/* PROFILE DROPDOWN ----------------------------------------- */
+.ns-profile-menu {
+  position: absolute;
+  top: 70px;
+  right: 0;
+  width: 200px;
+  background: #ffffff;
+  border-radius: 10px;
+  padding: 12px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+  animation: fadeMenu 0.15s ease-out;
+  z-index: 1000; /* Asegura que esté por encima de otros elementos */
+}
+
+@keyframes fadeMenu {
+  from { opacity: 0; transform: translateY(-6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Header del menú */
+.ns-profile-header {
+  padding-bottom: 10px;
+  border-bottom: 1px solid #000000;
+  margin-bottom: 5px;
+}
+
+.ns-profile-name {
+  font-size: 15px;
+  font-weight: 700;
+  color: #1f2532;
+}
+
+
+/* Items */
+.ns-profile-item {
+  width: 100%;
+  padding: 8px;
+  background: transparent;
+  border: none;
+  text-align: left;
+  font-size: 14px;
+  cursor: pointer;
+  border-radius: 6px;
+  transition: 0.15s;
+  color: #000000;
+}
+
+.ns-profile-item:hover {
+  background: #f3cba6;
+}
+
+/* Logout */
+.ns-profile-item.logout {
+  color: #fe0c04;
+  font-weight: 600;
+  margin-top: 5px;
+}
+
+/* MEDIA QUERIES PARA RESPONSIVE --------------------------- */
+@media (max-width: 768px) {
+  .ns-header {
+    padding: 0 15px;
+  }
+  
+  .ns-left {
+    gap: 15px;
+  }
+  
+  .ns-nav {
+    gap: 10px;
+  }
+  
+  .ns-link {
+    font-size: 14px;
+    padding: 6px 2px;
+  }
+  
+  .ns-brand__title {
+    font-size: 16px;
+  }
+  
+  .ns-welcome-message {
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 600px) {
+  .ns-welcome-message {
+    display: none; /* Oculta el mensaje en móviles */
+  }
+  
+  .ns-nav {
+    display: none;
+  }
+  
+  .ns-header {
+    padding: 0 10px;
+  }
+}
