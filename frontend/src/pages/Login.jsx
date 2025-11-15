@@ -1,8 +1,8 @@
 // src/pages/Login.jsx
 import { useContext, useState } from "react";
 import { UserContext } from "../context/UserContext.jsx";
-import Loader from "../components/Loader.jsx";
-import logo from "../assets/logo.svg";
+import Loader from "../components/common/Loader.jsx";
+import logo from "../assets/images/logo.svg";
 import { useNavigate } from "react-router-dom";
 
 export default function Login() {
