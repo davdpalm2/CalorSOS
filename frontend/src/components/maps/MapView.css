@@ -1,0 +1,50 @@
+/* src/components/maps/MapView.css */
+
+.mv-container {
+  position: relative;
+  width: 100%;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+/* Mini map */
+.mv-container.mini {
+  height: 300px; /* altura más elegante */
+  border: 1px solid #ddd;
+  border-radius: 14px;
+}
+
+/* Full map (modal) */
+.mv-container.full {
+  width: 100%;
+  height: 100%;
+}
+
+.mv-map {
+  width: 100%;
+  height: 100%;
+}
+
+/* Botón para expandir */
+.mv-expand-btn {
+  position: absolute;
+  bottom: 12px;
+  right: 12px;
+  padding: 8px 14px;
+
+  z-index: 5000;
+
+  background: rgba(251, 133, 23, 0.9);
+  border: 2px solid #000000;
+  border-radius: 20px;
+
+  font-size: 13px;
+  font-weight: 400;
+  cursor: pointer;
+
+  backdrop-filter: blur(3px);
+}
+
+.mv-expand-btn:hover {
+  background: rgb(240, 162, 102);
+}

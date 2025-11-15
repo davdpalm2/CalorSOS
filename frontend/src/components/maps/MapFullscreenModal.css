@@ -1,0 +1,64 @@
+/* src/components/maps/MapFullscreenModal.css */
+
+.mfm-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+
+  width: 100vw;
+  height: 100vh;
+
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(4px);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  z-index: 9999;
+}
+
+.mfm-window {
+  background: white;
+  width: 90%;
+  height: 90%;
+  border-radius: 12px;
+
+  position: relative;
+  overflow: hidden;
+
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.mfm-close-btn {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+
+  padding: 10px 16px;
+
+  background: rgba(251, 133, 23, 0.9);
+  border: 2px solid #000000;
+  border-radius: 20px;
+
+  font-size: 13px;
+  font-weight: 400;
+  cursor: pointer;
+
+  z-index: 99999;
+  backdrop-filter: blur(4px);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
+}
+
+.mfm-close-btn:hover {
+  background: rgb(240, 162, 102);
+}
+
+
+.mfm-map-container {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
