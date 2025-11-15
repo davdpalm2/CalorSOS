@@ -8,6 +8,12 @@ import Login from "../pages/Login.jsx";
 import Register from "../pages/Register.jsx";
 import Perfil from "../pages/Perfil.jsx";
 
+import Alertas from "../pages/Alertas.jsx";
+import PuntosHidratacion from "../pages/PuntosHidratacion.jsx";
+import ZonasFrescas from "../pages/ZonasFrescas.jsx";
+import Consejos from "../pages/Consejos.jsx";
+import Configuracion from "../pages/Configuracion.jsx";
+
 export default function AppRouter() {
   const { user, loading } = useContext(UserContext);
 
@@ -27,7 +33,6 @@ export default function AppRouter() {
 
   return (
     <Routes>
-
       {/* PÚBLICAS */}
       <Route
         path="/login"
@@ -50,6 +55,31 @@ export default function AppRouter() {
         element={user ? <Perfil /> : <Navigate to="/login" />}
       />
 
+      <Route
+        path="/alertas"
+        element={user ? <Alertas /> : <Navigate to="/login" />}
+      />
+
+      <Route
+        path="/puntos-hidratacion"
+        element={user ? <PuntosHidratacion /> : <Navigate to="/login" />}
+      />
+
+      <Route
+        path="/zonas-frescas"
+        element={user ? <ZonasFrescas /> : <Navigate to="/login" />}
+      />
+
+      <Route
+        path="/consejos"
+        element={user ? <Consejos /> : <Navigate to="/login" />}
+      />
+
+      <Route
+        path="/configuracion"
+        element={user ? <Configuracion /> : <Navigate to="/login" />}
+      />
+      
       {/* Fallback */}
       <Route path="*" element={<Navigate to="/" />} />
     </Routes>
