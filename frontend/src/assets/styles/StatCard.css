@@ -1,0 +1,28 @@
+/* statcard.css */
+.sc-card {
+  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.06));
+  color: #eaf0f6;
+  padding: 14px;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  gap:8px;
+  min-height:84px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.35);
+}
+
+.sc-title {
+  font-size:13px;
+  color:#97a9bf;
+  font-weight:600;
+}
+
+.sc-value { display:flex; align-items:baseline; gap:8px; }
+.sc-number {
+  font-size:24px;
+  font-weight:700;
+  color:#ffffff;
+}
+.sc-unit { font-size:14px; color:#9fb0c8; }
+
+.sc-foot { font-size:12px; color:#8b9bb0; }
