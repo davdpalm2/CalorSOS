@@ -87,3 +87,15 @@
   margin-top: 8px;
   font-size: 14px;
 }
+
+/* En global.css */
+.main-content {
+  /* Quitamos el padding-top fijo */
+  min-height: 100vh;
+}
+
+/* Agregamos una clase para cuando SÍ hay navbar */
+.with-navbar {
+  padding-top: 65px;
+  min-height: calc(100vh - 65px);
+}
