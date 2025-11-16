@@ -1,0 +1,181 @@
+/* CONTENEDOR PRINCIPAL */
+.consejos-container {
+  min-height: 100vh;
+  background: linear-gradient(180deg, #121620, #263141);
+  color: #dbe9f8;
+  font-family: Inter, Helvetica, Arial, sans-serif;
+  padding-top: 0;
+}
+
+.consejos-title {
+  align-self: start;
+  margin: 20px 16px;
+  font-size: 2rem;
+  
+}
+/* LAYOUT CON SIDEBAR */
+.consejos-layout {
+  max-width: 1400px;
+  margin: 0 auto;
+  display: flex;
+  gap: 24px;
+  padding: 20px 16px;
+}
+
+/* SIDEBAR */
+.consejos-sidebar {
+  width: 250px;
+  background: #1a2330;
+  padding: 16px;
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,0.05);
+  height: fit-content;
+}
+
+.sidebar-title {
+  font-size: 1.2rem;
+  margin-bottom: 12px;
+  font-weight: 600;
+  color: #e3eeff;
+}
+
+.sidebar-clear {
+  width: 100%;
+  background: #ff8c00;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  color: white;
+  font-weight: 600;
+  margin-bottom: 16px;
+  transition: 0.2s;
+}
+
+.sidebar-clear:hover {
+  background: #ff7a00;
+}
+
+.sidebar-checklist {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.sidebar-item {
+  font-size: 14px;
+  cursor: pointer;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  color: #dbe9f8;
+}
+
+/* CONTENIDO */
+.consejos-content {
+  flex: 1;
+}
+
+.consejos-title {
+  font-size: 2rem;
+  font-weight: 600;
+  margin-bottom: 20px;
+  color: #f0f6ff;
+}
+
+/* GRID DE CONSEJOS */
+.consejos-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 18px;
+}
+
+/* TARJETAS */
+.consejo-card {
+  background: #1f2a33;
+  border-radius: 10px;
+  padding: 16px;
+  border: 1px solid rgba(255,255,255,0.05);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.consejo-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+}
+
+/* CATEGORÍAS COLOREADAS */
+.consejo-tag {
+  display: inline-block;
+  margin-top: 10px;
+  padding: 4px 10px;
+  font-size: 12px;
+  border-radius: 8px;
+  font-weight: 500;
+}
+
+/* Colores dinámicos */
+.consejo-tag[data-categoria="Hidratación"] {
+  background: rgba(66,153,225,0.15);
+  color: #42a5f5;
+  border: 1px solid rgba(66,153,225,0.25);
+}
+
+.consejo-tag[data-categoria="Exposición al sol"] {
+  background: rgba(255,152,0,0.15);
+  color: #ff9800;
+  border: 1px solid rgba(255,152,0,0.25);
+}
+
+.consejo-tag[data-categoria="Protección personal"] {
+  background: rgba(76,175,80,0.15);
+  color: #4caf50;
+  border: 1px solid rgba(76,175,80,0.25);
+}
+
+.consejo-tag[data-categoria="Actividad física"] {
+  background: rgba(156,39,176,0.15);
+  color: #9c27b0;
+  border: 1px solid rgba(156,39,176,0.25);
+}
+
+.consejo-tag[data-categoria="Hogar"] {
+  background: rgba(33,150,243,0.15);
+  color: #2196f3;
+  border: 1px solid rgba(33,150,243,0.25);
+}
+
+.consejo-tag[data-categoria="Control corporal"] {
+  background: rgba(244,67,54,0.15);
+  color: #f44336;
+  border: 1px solid rgba(244,67,54,0.25);
+}
+
+.consejo-tag[data-categoria="Alimentación"] {
+  background: rgba(255,193,7,0.15);
+  color: #ffc107;
+  border: 1px solid rgba(255,193,7,0.25);
+}
+
+.consejo-tag[data-categoria="Comunidad"] {
+  background: rgba(3,169,244,0.15);
+  color: #03a9f4;
+  border: 1px solid rgba(3,169,244,0.25);
+}
+
+.consejo-tag[data-categoria="Emergencias"] {
+  background: rgba(244,67,54,0.2);
+  color: #ef5350;
+  border: 1px solid rgba(244,67,54,0.3);
+}
+
+/* RESPONSIVE */
+@media (max-width: 960px) {
+  .consejos-layout {
+    flex-direction: column;
+  }
+
+  .consejos-sidebar {
+    width: 100%;
+  }
+}

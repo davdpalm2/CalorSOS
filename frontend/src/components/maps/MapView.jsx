@@ -1,69 +1,199 @@
-// src/components/maps/MapView.jsx
-import React, { useEffect } from "react";
-import { MapContainer, TileLayer, Marker, Popup, useMap } from "react-leaflet";
-import L from "leaflet";
+import React, { useEffect, useRef } from "react";
+import {
+    MapContainer,
+    TileLayer,
+    Marker,
+    Popup,
+    useMap,
+} from "react-leaflet";
 
+import L from "leaflet";
 import "./MapView.css";
 
-// Fix de íconos para Leaflet
+// Fix de íconos por defecto (marcador azul)
 delete L.Icon.Default.prototype._getIconUrl;
 L.Icon.Default.mergeOptions({
     iconRetinaUrl: "https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon-2x.png",
     iconUrl: "https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon.png",
     shadowUrl: "https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png",
-    });
+});
 
-    // Forzar resize cuando se monta el modal
-    function ForceResize() {
+// --- FORZAR RESIZE EN MODAL ---
+function ForceResize() {
     const map = useMap();
     useEffect(() => {
         setTimeout(() => map.invalidateSize(), 200);
     }, [map]);
     return null;
-    }
+}
 
-    export default function MapView({ mini = false, onExpand }) {
+// --- CENTRAR EN SELECCIÓN ---
+function CenterOnSelection({ seleccion }) {
+    const map = useMap();
+
+    useEffect(() => {
+        if (seleccion) {
+            map.setView([seleccion.latitud, seleccion.longitud], 16, {
+                animate: true,
+            });
+        }
+    }, [seleccion]);
+
+    return null;
+}
+
+// --- NUEVO: RESET GENERAL DE VISTA ---
+function ResetView({ trigger, zonasFrescas, puntosHidratacion }) {
+    const map = useMap();
+
+    useEffect(() => {
+        if (trigger === 0) return;
+
+        const coords = [];
+
+        zonasFrescas?.forEach(z => coords.push([z.latitud, z.longitud]));
+        puntosHidratacion?.forEach(p => coords.push([p.latitud, p.longitud]));
+
+        if (coords.length === 0) return;
+
+        const bounds = L.latLngBounds(coords);
+
+        map.fitBounds(bounds, {
+            padding: [50, 50],
+            animate: true,
+            maxZoom: 14
+        });
+    }, [trigger, zonasFrescas]);
+
+    return null;
+}
+
+// ICONO VERDE PARA ZONAS FRESCAS
+const greenDivIcon = new L.DivIcon({
+    html: `<span class="zf-div-marker"></span>`,
+    className: "custom-div-icon-wrapper",
+    iconSize: [24, 24],
+    iconAnchor: [12, 24],
+    popupAnchor: [0, -20],
+});
+
+// ICONO AZUL PARA PUNTOS DE HIDRATACIÓN
+const blueDivIcon = new L.DivIcon({
+    html: `<span class="ph-div-marker"></span>`,
+    className: "custom-div-icon-wrapper",
+    iconSize: [24, 24],
+    iconAnchor: [12, 24],
+    popupAnchor: [0, -20],
+});
+
+export default function MapView({
+    mini = false,
+    onExpand,
+    zonasFrescas = [],
+    puntosHidratacion = [],
+    zonaSeleccionada = null,
+    puntoSeleccionado = null,
+    onSelectMarker = () => {},
+    resetView = false,   // 👈 NUEVO
+}) {
+
+    const markerRefs = useRef({});
+
+    // abrir popup automático
+    useEffect(() => {
+        if (zonaSeleccionada && markerRefs.current[zonaSeleccionada.id_zona]) {
+            try {
+                markerRefs.current[zonaSeleccionada.id_zona].openPopup();
+            } catch {}
+        }
+        if (puntoSeleccionado && markerRefs.current[puntoSeleccionado.id_punto]) {
+            try {
+                markerRefs.current[puntoSeleccionado.id_punto].openPopup();
+            } catch {}
+        }
+    }, [zonaSeleccionada, puntoSeleccionado]);
+
     return (
         <div className={mini ? "mv-container mini" : "mv-container full"}>
-        <MapContainer
-            center={[10.391, -75.479]}
-            zoom={13}
-            className="mv-map"
-            maxBounds={[
-                [10.30, -75.60],
-                [10.50, -75.35]
-            ]}
-            maxBoundsViscosity={1.0}  // entre 0 y 1, rebote fuerte
-            minZoom={12}
-            maxZoom={18}
-            // restricciones de interacción
-            dragging={true}
-            scrollWheelZoom={true}
-            doubleClickZoom={!mini}
-            zoomControl={false}
-            touchZoom={!mini}
-            boxZoom={!mini}
-            keyboard={!mini}
-            attributionControl={false}
-        >
 
-            <ForceResize />
+            <MapContainer
+                center={[10.391, -75.479]}
+                zoom={13}
+                className="mv-map"
+                maxBounds={[
+                    [10.30, -75.60],
+                    [10.50, -75.35]
+                ]}
+                maxBoundsViscosity={1.0}
+                minZoom={12}
+                maxZoom={18}
+                dragging={true}
+                scrollWheelZoom={true}
+                doubleClickZoom={!mini}
+                zoomControl={false}
+                touchZoom={!mini}
+                boxZoom={!mini}
+                keyboard={!mini}
+                attributionControl={false}
+            >
+                <ForceResize />
 
-            <TileLayer
-            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-            attribution="&copy; OpenStreetMap"
-            />
+                {/* reset general cuando trigger cambia */}
+                <ResetView
+                    trigger={resetView}
+                    zonasFrescas={zonasFrescas}
+                    puntosHidratacion={puntosHidratacion}
+                />
 
-            <Marker position={[10.391, -75.479]}>
-            <Popup>Centro de Cartagena</Popup>
-            </Marker>
-        </MapContainer>
+                {/* centrado por selección */}
+                <CenterOnSelection seleccion={zonaSeleccionada || puntoSeleccionado} />
 
-        {mini && (
-            <button className="mv-expand-btn" onClick={onExpand}>
-            Ver mapa completo
-            </button>
-        )}
+                <TileLayer
+                    url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                    attribution="&copy; OpenStreetMap"
+                />
+
+                {/* Marcadores verdes (Zonas Frescas) */}
+                {Array.isArray(zonasFrescas) && zonasFrescas.map((z) => (
+                    <Marker
+                        key={z.id_zona}
+                        position={[z.latitud, z.longitud]}
+                        icon={greenDivIcon}
+                        ref={(ref) => (markerRefs.current[z.id_zona] = ref)}
+                        eventHandlers={{ click: () => onSelectMarker(z) }}
+                    >
+                        <Popup>
+                            <strong>{z.nombre}</strong><br />
+                            {z.descripcion}
+                        </Popup>
+                    </Marker>
+                ))}
+
+                {/* Marcadores azules (Puntos de hidratación) */}
+                {Array.isArray(puntosHidratacion) && puntosHidratacion.map((p) => (
+                    <Marker
+                        key={p.id_punto}
+                        position={[p.latitud, p.longitud]}
+                        icon={blueDivIcon}
+                        ref={(ref) => (markerRefs.current[p.id_punto] = ref)}
+                        eventHandlers={{ click: () => onSelectMarker(p) }}
+                    >
+                        <Popup>
+                            <strong>{p.nombre}</strong><br />
+                            {p.descripcion}
+                        </Popup>
+
+                    </Marker>
+                ))}
+
+            </MapContainer>
+
+            {/* botón ver completo si es mini */}
+            {mini && (
+                <button className="mv-expand-btn" onClick={onExpand}>
+                    Ver mapa completo
+                </button>
+            )}
         </div>
     );
 }

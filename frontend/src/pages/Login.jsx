@@ -1,9 +1,10 @@
 // src/pages/Login.jsx
 import { useContext, useState } from "react";
 import { UserContext } from "../context/UserContext.jsx";
-import Loader from "../components/common/Loader.jsx";
-import logo from "../assets/images/logo.svg";
 import { useNavigate } from "react-router-dom";
+import LoaderPremium from "../components/common/LoaderPremium.jsx";
+import logo from "../assets/images/logo.svg";
+import "../assets/styles/Auth.css";
 
 export default function Login() {
   const navigate = useNavigate();
@@ -13,9 +14,10 @@ export default function Login() {
   const [password, setPassword] = useState("");
   const [loadingBtn, setLoadingBtn] = useState(false);
   const [error, setError] = useState("");
+  const [showPass, setShowPass] = useState(false);
 
   const handleLogin = async (e) => {
-    e.preventDefault(); // Evita recargar la página
+    e.preventDefault();
 
     if (!email || !password) {
       setError("Todos los campos son obligatorios");
@@ -27,8 +29,8 @@ export default function Login() {
 
     try {
       await login(email, password);
-      navigate("/"); // Redirige al Home
-    } catch (err) {
+      navigate("/");
+    } catch {
       setError("Credenciales incorrectas");
     }
 
@@ -36,50 +38,60 @@ export default function Login() {
   };
 
   return (
-    <div className="login-container">
+    <div className="auth-page">
+      <div className="auth-card">
 
-      <img src={logo} alt="CalorSOS" className="login-logo" />
+        <img src={logo} alt="CalorSOS" className="auth-logo" />
 
-      <h1 className="login-title">Bienvenido</h1>
-      <p className="login-subtitle">Inicia sesión para continuar</p>
+        <h1 className="auth-title">Bienvenido</h1>
+        <p className="auth-subtitle">Inicia sesión para continuar</p>
 
-      <form onSubmit={handleLogin} className="login-form">
+        <form onSubmit={handleLogin}>
+          
+          <div className="input-group">
+            <i className="fa-solid fa-envelope"></i>
+            <input
+              type="email"
+              placeholder="Correo"
+              className="auth-input"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+          </div>
 
-        <input
-          type="email"
-          placeholder="Correo"
-          className="login-input"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
+          <div className="input-group">
+            <i className="fa-solid fa-lock"></i>
+            <input
+              type={showPass ? "text" : "password"}
+              placeholder="Contraseña"
+              className="auth-input"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+            <i
+              className="fa-solid fa-eye toggle-password"
+              onClick={() => setShowPass(!showPass)}
+            ></i>
+          </div>
 
-        <input
-          type="password"
-          placeholder="Contraseña"
-          className="login-input"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
+          {error && <p className="auth-error">{error}</p>}
 
-        {error && <p className="login-error">{error}</p>}
+          <button type="submit" className="auth-btn" disabled={loadingBtn}>
+            {loadingBtn ? <LoaderPremium mini /> : "Ingresar"}
+          </button>
 
-        <button
-          type="submit"
-          className="login-btn"
-          disabled={loadingBtn}
-        >
-          {loadingBtn ? <Loader /> : "Ingresar"}
-        </button>
+        </form>
 
-      </form>
+        <p className="small-text" style={{ marginTop: "12px", color: "#8fa3bf" }}>
+          ¿No tienes una cuenta?{" "}
+          <a href="/register" className="auth-link">Regístrate aquí</a>
+        </p>
 
-      <p className="small-text">
-        ¿No tienes una cuenta?{" "}
-        <a href="/register" className="link">
-          Regístrate aquí
-        </a>
-      </p>
+        <footer className="auth-footer">
+          <p>© {new Date().getFullYear()} CalorSOS — Todos los derechos reservados</p>
+        </footer>
 
+      </div>
     </div>
   );
 }

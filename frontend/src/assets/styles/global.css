@@ -1,100 +1,23 @@
-/* LOGIN */
-.login-container {
-  width: 100%;
-  max-width: 380px;
-  margin: auto;
-  padding: 40px 20px;
-  text-align: center;
+/* Reset y tipografía global */
+html, body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Inter, Helvetica, Arial, sans-serif;
+  background: linear-gradient(180deg,#121620,#263141);
+  color: #dbe9f8;
 }
 
-.login-logo {
-  width: 200px;
-  margin-bottom: 20px;
+*, *::before, *::after {
+  box-sizing: inherit;
 }
 
-.login-title {
-  font-size: 28px;
-  font-weight: bold;
-  margin-bottom: 4px;
-}
-
-.login-subtitle {
-  font-size: 15px;
-  color: #555;
-  margin-bottom: 25px;
-}
-
-.login-input {
-  width: 100%;
-  padding: 14px;
-  margin-bottom: 14px;
-  border-radius: 10px;
-  border: 1px solid #ccc;
-  font-size: 15px;
-}
-
-.login-error {
-  color: red;
-  font-size: 14px;
-  margin-bottom: 10px;
-}
-
-.login-btn {
-  width: 100%;
-  padding: 14px;
-  background-color: #ff6b00;
-  color: white;
-  font-size: 16px;
-  border: none;
-  border-radius: 10px;
-  cursor: pointer;
-  font-weight: bold;
-}
-
-.login-btn:disabled {
-  opacity: 0.7;
-}
-
-.loader {
-  border: 3px solid #f3f3f3;
-  border-top: 3px solid #ff6b00;
-  border-radius: 50%;
-  width: 20px;
-  height: 20px;
-  margin: auto;
-  animation: spin 0.7s linear infinite;
-}
-
-@keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
-}
-
-.btn-primary {
-  width: 100%;
-  padding: 12px;
-  background: #ff6b00;
-  border: none;
-  color: white;
-  border-radius: 10px;
-  cursor: pointer;
-  margin-top: 12px;
-  font-weight: 700;
-}
-
-.error-msg {
-  color: #d93025;
-  margin-top: 8px;
-  font-size: 14px;
-}
-
-/* En global.css */
+/* Contenedor principal para páginas normales */
 .main-content {
-  /* Quitamos el padding-top fijo */
   min-height: 100vh;
 }
 
-/* Agregamos una clase para cuando SÍ hay navbar */
+/* Contenedor para páginas con navbar */
 .with-navbar {
   padding-top: 65px;
   min-height: calc(100vh - 65px);

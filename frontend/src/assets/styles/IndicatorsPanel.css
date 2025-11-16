@@ -37,3 +37,20 @@
     color: #89929b;
     font-size: 13px;
 }
+/* Responsive adjustments */
+@media (max-width: 600px) {
+    .ip-container {
+        padding: 16px;
+    }
+    
+    .ip-title {
+        font-size: 14px;
+    }
+    
+    .ip-value {
+        font-size: 12px;
+    }
+}
+/* ========================================== */
+/* 🔥 FIN INDICATORS PANEL STYLESHEET       */
+/* ========================================== */

@@ -1,0 +1,491 @@
+/* ===============================
+   ZONAS FRESCAS - PAGE
+================================*/
+
+.zf-page {
+  background: linear-gradient(180deg, #10141e, #1b2533);
+  min-height: 100vh;
+  color: #eaf3ff;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
+
+/* ===============================
+   TITLE
+================================*/
+
+.zf-title {
+  text-align: center;
+  font-size: 2rem;
+  font-weight: 700;
+  margin: 22px 0 26px;
+  color: #f4f7ff;
+  letter-spacing: 0.4px;
+  text-shadow: 0 3px 9px rgba(0,0,0,0.35);
+}
+
+/* ===============================
+   MAIN GRID
+================================*/
+
+.zf-layout {
+  display: grid;
+  grid-template-columns: 330px 1fr 300px;
+  gap: 24px;
+  padding: 0 20px 26px;
+}
+
+/* ===============================
+   LEFT SIDEBAR
+================================*/
+
+.zf-sidebar {
+  background: #18222f;
+  padding: 22px;
+  border-radius: 18px;
+  border: 1px solid rgba(255,255,255,0.07);
+  box-shadow: 0 4px 16px rgba(0,0,0,0.28);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.zf-sidebar-header {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* Inputs */
+.zf-search,
+.zf-select {
+  width: 100%;
+  padding: 11px 14px;
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,0.12);
+  background: #0d141c;
+  color: #eaf3ff;
+  font-size: 14px;
+  transition: 0.15s ease;
+}
+
+.zf-search:focus,
+.zf-select:focus {
+  border-color: #ff8a27;
+  box-shadow: 0 0 6px rgba(255,138,39,0.6);
+  outline: none;
+}
+
+/* ===============================
+   CLEAR SELECTION BUTTON
+================================*/
+
+.zf-clear-btn {
+  width: 100%;
+  padding: 10px;
+  background: #263142;
+  border-radius: 10px;
+  border: 1px solid rgba(255,255,255,0.14);
+  color: #eaeaea;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  transition: 0.25s ease;
+}
+
+.zf-clear-btn:hover {
+  background: #313f54;
+  border-color: #ff8a27;
+  color: #ff8a27;
+  transform: translateY(-2px);
+}
+
+/* ===============================
+   LISTA DE ZONAS
+================================*/
+
+.zf-list-compact {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-height: calc(100vh - 320px);
+  overflow-y: auto;
+}
+
+.zf-list-compact::-webkit-scrollbar {
+  width: 6px;
+}
+.zf-list-compact::-webkit-scrollbar-thumb {
+  background: rgba(255,255,255,0.18);
+  border-radius: 6px;
+}
+
+/* Items */
+.zf-item-compact {
+  background: #141c26;
+  padding: 13px 14px;
+  border-radius: 12px;
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: 0.22s ease;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.zf-item-compact:hover {
+  background: #1a2431;
+  border-color: rgba(255,255,255,0.12);
+}
+
+/* Seleccionado */
+.zf-item-compact.selected {
+  border: 1px solid #ff8a27;
+  background: #1f2937;
+  box-shadow: 0 0 10px rgba(255,138,39,0.35);
+  transform: translateY(-1px);
+}
+
+.zf-item-name {
+  font-size: 14px;
+  font-weight: 600;
+  color: #f5f8ff;
+}
+
+.zf-item-type {
+  background: rgba(255,138,39,0.14);
+  border-left: 3px solid #ff8a27;
+  color: #ffbf8a;
+  padding: 4px 8px;
+  border-radius: 6px;
+  text-transform: capitalize;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+/* Empty message */
+.zf-empty {
+  text-align: center;
+  opacity: 0.75;
+  padding-top: 8px;
+}
+
+/* ===============================
+   MAP CARD
+================================*/
+
+.zf-map-card {
+  background: #18222f;
+  padding: 16px;
+  border-radius: 18px;
+  border: 1px solid rgba(255,255,255,0.06);
+  box-shadow: 0 4px 14px rgba(0,0,0,0.25);
+}
+
+.zf-map-card .mv-container.mini {
+  width: 100%;
+  height: 340px;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+/* ===============================
+   REPORT-BAR
+================================*/
+
+.zf-report-bar {
+  background: #18222f;
+  border-radius: 16px;
+  padding: 20px;
+  margin-top: 18px;
+  border: 1px solid rgba(255,255,255,0.07);
+  box-shadow: 0 3px 12px rgba(0,0,0,0.22);
+}
+
+.zf-report-bar h3 {
+  color: #ffb87a;
+  margin: 0 0 6px;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.zf-report-bar p {
+  margin: 0 0 12px;
+  font-size: 14px;
+  opacity: 0.85;
+}
+
+/* ===============================
+   REPORT BUTTON
+================================*/
+
+.btn-reportar-zona {
+  background: #ff8a27;
+  color: black;
+  border: none;
+  padding: 11px 14px;
+  font-weight: 700;
+  font-size: 14px;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: 0.18s ease;
+  width: 100%;
+}
+
+.btn-reportar-zona:hover {
+  background: #ffa45d;
+  transform: translateY(-2px);
+}
+
+/* ===============================
+   RIGHT SIDEBAR
+================================*/
+
+.zf-right-sidebar {
+  background: #18222f;
+  padding: 20px;
+  border-radius: 18px;
+  border: 1px solid rgba(255,255,255,0.08);
+  box-shadow: 0 4px 15px rgba(0,0,0,0.30);
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.zf-right-sidebar h3 {
+  margin-bottom: 6px;
+  color: #ffb87a;
+  font-weight: 700;
+}
+
+.zf-right-sidebar p {
+  font-size: 14px;
+  color: #dfe9ff;
+  line-height: 1.45;
+}
+
+/* Tag inline */
+.zf-tag-inline {
+  background: #ff8a27;
+  padding: 4px 9px;
+  border-radius: 8px;
+  color: #000;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+/* ===============================
+   REPORT MODAL
+================================*/
+
+.zf-report-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.60);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 99999;
+}
+
+.zf-report-modal {
+  background: #0f1720;
+  padding: 22px;
+  border-radius: 14px;
+  width: 520px;
+  max-width: 92%;
+  border: 1px solid rgba(255,255,255,0.08);
+  box-shadow: 0 10px 35px rgba(0,0,0,0.65);
+  position: relative;
+  color: #eaf3ff;
+}
+
+.zf-report-close {
+  position: absolute;
+  right: 14px;
+  top: 12px;
+  background: transparent;
+  border: none;
+  color: #ff8a27;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+.zf-report-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 10px;
+}
+
+.zf-report-form label {
+  font-size: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.zf-report-form input,
+.zf-report-form textarea {
+  background: #081018;
+  border: 1px solid rgba(255,255,255,0.15);
+  padding: 9px 10px;
+  border-radius: 8px;
+  color: #eaf3ff;
+}
+
+/* Modal buttons */
+.btn-report-submit {
+  background: #ff8a27;
+  border: none;
+  padding: 10px 14px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: 0.18s ease;
+}
+
+.btn-report-submit:hover {
+  background: #ffa45d;
+  transform: translateY(-2px);
+}
+
+.btn-cancel {
+  background: transparent;
+  color: #eaf3ff;
+  border: 1px solid rgba(255,255,255,0.15);
+  padding: 8px 10px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.btn-cancel:hover {
+  border-color: #ff8a27;
+  color: #ff8a27;
+}
+
+/* Resultado */
+.zf-report-result.ok {
+  color: #9be79b;
+}
+.zf-report-result.err {
+  color: #ff9b9b;
+}
+
+/* ===============================
+   RESPONSIVE
+================================*/
+
+@media (max-width: 1024px) {
+  .zf-layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 600px) {
+  .zf-search,
+  .zf-select,
+  .btn-reportar-zona {
+    font-size: 13px;
+  }
+}
+
+/* ===============================
+   GLASS PREMIUM LOADER OVERLAY
+================================*/
+
+.zf-loader-screen {
+  position: fixed;
+  inset: 0;
+
+  background: rgba(20, 26, 38, 0.85); /* fondo semi-transparente más oscuro para mejor contraste */
+  backdrop-filter: blur(20px) saturate(150%) brightness(110%);
+  -webkit-backdrop-filter: blur(20px) saturate(150%) brightness(110%);
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  z-index: 999999;
+}
+
+
+@keyframes fadeScreen {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+/* Texto elegante bajo el loader */
+.zf-loader-text {
+  margin-top: 16px;
+  font-size: 17px;
+  color: #ffe1c4; /* más cálido para combinar con el glass */
+  font-weight: 500;
+  text-shadow: 0 2px 8px rgba(0,0,0,0.35);
+  letter-spacing: 0.4px;
+  animation: fadeIn 0.4s ease forwards;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ===============================
+   LOADER: Glow Naranja + Glass Ring
+================================*/
+
+.thermal-loader {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+
+  border: 4px solid rgba(255, 255, 255, 0.18);  /* borde tipo glass */
+  border-top-color: #ff8a27;                     /* borde naranja brillo */
+  backdrop-filter: blur(4px) brightness(135%);
+  -webkit-backdrop-filter: blur(4px) brightness(135%);
+
+  background: rgba(255, 255, 255, 0.08);   /* leve fondo de vidrio */
+  box-shadow:
+    0 0 12px rgba(255,138,39,0.45),
+    0 4px 18px rgba(0,0,0,0.25),
+    inset 0 0 8px rgba(255,255,255,0.35);
+
+  animation: spin 0.9s linear infinite, glassPulse 2.6s ease-in-out infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Glow respirando en el vidrio */
+@keyframes glassPulse {
+  0% {
+    box-shadow:
+      0 0 12px rgba(255,138,39,0.45),
+      0 4px 18px rgba(0,0,0,0.25),
+      inset 0 0 5px rgba(255,255,255,0.25);
+  }
+  50% {
+    box-shadow:
+      0 0 20px rgba(255,138,39,0.65),
+      0 6px 25px rgba(0,0,0,0.35),
+      inset 0 0 12px rgba(255,255,255,0.45);
+  }
+  100% {
+    box-shadow:
+      0 0 12px rgba(255,138,39,0.45),
+      0 4px 18px rgba(0,0,0,0.25),
+      inset 0 0 5px rgba(255,255,255,0.25);
+  }
+}
+
+/* Mini loader (por si lo usas luego en botones) */
+.thermal-loader.btn-mini {
+  width: 28px;
+  height: 28px;
+  border-width: 3px;
+}

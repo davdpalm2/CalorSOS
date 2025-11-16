@@ -1,14 +1,14 @@
-import React from 'react';
 import NavbarSmart from '../components/ui/NavbarSmart';
+import "../assets/styles/Alertas.css";
 
 export default function Alertas() {
     return (
-        <>
-        <NavbarSmart />
         <div className="page-container">
-            <h1 className="page-title">Alertas</h1>
-            {/* Tu contenido aquí */}
+            <NavbarSmart />
+            <div className="page-content">
+                <h1 className="page-title">Alertas</h1>
+                {/* Aquí puedes agregar tus tarjetas, mapas, listas, etc. */}
+            </div>
         </div>
-        </>
     );
 }

@@ -1,14 +1,14 @@
-import React from 'react';
 import NavbarSmart from '../components/ui/NavbarSmart';
-
+import "../assets/styles/Configuracion.css";
 export default function Configuracion() {
     return (
-        <>
-        <NavbarSmart />
+        
         <div className="page-container">
-            <h1 className="page-title">Configuración</h1>
-            {/* Tu contenido aquí */}
+            <NavbarSmart />
+            <div className="page-content">
+                <h1 className="page-title">Configuración</h1>
+                {/* Contenido de la página de configuración */}
+            </div>
         </div>
-        </>
     );
 }

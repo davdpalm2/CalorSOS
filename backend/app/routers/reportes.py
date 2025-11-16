@@ -1,4 +1,3 @@
-# backend/routers/reportes.py
 from fastapi import APIRouter, HTTPException, Depends
 from typing import Optional
 from backend.models.reportes_mdls import ReporteModel
@@ -6,25 +5,34 @@ from backend.app.security.jwt_handler import verificar_token, verificar_rol
 
 router = APIRouter(prefix="/reportes", tags=["Reportes"])
 
-# Crear un reporte (solo usuarios autenticados)
+from fastapi import Form
+
 @router.post("/")
 def crear_reporte(
-    tipo: str,
-    descripcion: str = None,
-    latitud: float = None,
-    longitud: float = None,
-    foto_url: str = None,
+    tipo: str = Form(...),
+    nombre: str = Form(None),
+    descripcion: str = Form(None),
+    latitud: float = Form(None),
+    longitud: float = Form(None),
     datos_usuario: dict = Depends(verificar_token)
 ):
     """
-    Crea un nuevo reporte. El id_usuario se obtiene automáticamente del token JWT.
+    Crea un nuevo reporte usando FormData. 
+    El id_usuario se obtiene automáticamente del token JWT.
     """
     try:
         id_usuario = datos_usuario["id_usuario"]
-        reporte = ReporteModel.crear_reporte(id_usuario, tipo, descripcion, latitud, longitud, foto_url)
+        reporte = ReporteModel.crear_reporte(
+            id_usuario,
+            tipo,
+            nombre,
+            descripcion,
+            latitud,
+            longitud
+        )
         return {"status": "success", "data": reporte}
-    except HTTPException as e:
-        raise e
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
 
 
 # Listar todos los reportes (solo administradores)

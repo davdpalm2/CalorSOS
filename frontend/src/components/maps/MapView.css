@@ -48,3 +48,37 @@
 .mv-expand-btn:hover {
   background: rgb(240, 162, 102);
 }
+
+/* ---------- marcador verde (divIcon) ---------- */
+/* wrapper por si hace falta */
+.custom-div-icon-wrapper {
+  background: transparent;
+  border: none;
+  box-shadow: none;
+}
+
+/* la burbuja verde */
+.zf-div-marker {
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #28a745; /* verde */
+  border: 2px solid #fff;
+  box-shadow: 0 2px 6px rgba(40,167,69,0.35);
+  transform: translateY(-4px);
+}
+
+/* Opcional: hacer el popup del marker verde ligeramente destacado */
+.leaflet-popup-content-wrapper {
+  border-radius: 8px;
+}
+.ph-div-marker {
+    width: 20px;
+    height: 20px;
+    background-color: #007bff; /* azul */
+    border-radius: 50%;
+    border: 3px solid white;
+    box-shadow: 0 0 4px rgba(0,0,0,0.4);
+    display: inline-block;
+}

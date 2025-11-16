@@ -1,0 +1,142 @@
+/* ===============================
+   PÁGINA PUNTOS DE HIDRATACIÓN
+================================*/
+
+.ph-page {
+  background: linear-gradient(180deg, #121620, #1b2533);
+  min-height: 100vh;
+  margin: 0px;
+  padding: 0px;
+  color: #eaf3ff;
+}
+
+/* TÍTULO */
+.ph-title {
+  text-align: center;
+  font-size: 2rem;
+  font-weight: 700;
+  margin: 20px 0 30px 0;
+  color: #eaf3ff;
+  text-shadow: 0 2px 6px rgba(0,0,0,0.4);
+}
+
+/* LAYOUT */
+.ph-layout {
+  display: grid;
+  grid-template-columns: 340px 1fr;
+  gap: 25px;
+}
+
+/* SIDEBAR */
+.ph-sidebar {
+  background: #1b2733;
+  padding: 20px;
+  border-radius: 18px;
+  border: 1px solid rgba(255,255,255,0.06);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+}
+
+/* BUSCADOR */
+.ph-search {
+  width: 100%;
+  padding: 10px 14px;
+  border-radius: 10px;
+  border: 1px solid rgba(255,255,255,0.1);
+  background: #111923;
+  color: #dce6f7;
+  font-size: 14px;
+}
+
+.ph-search:focus {
+  outline: none;
+  border-color: #ff8a27;
+  box-shadow: 0 0 5px #ff8a27;
+}
+
+/* SELECTOR */
+.ph-select {
+  margin-top: 12px;
+  width: 100%;
+  padding: 10px 14px;
+  border-radius: 10px;
+  border: 1px solid rgba(255,255,255,0.1);
+  background: #111923;
+  color: #dce6f7;
+  font-size: 14px;
+}
+
+/* LISTA */
+.ph-list {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  max-height: calc(100vh - 260px);
+  overflow-y: auto;
+}
+
+/* ITEMS */
+.ph-item {
+  background: #162029;
+  padding: 14px;
+  border-radius: 10px;
+  cursor: pointer;
+  border: 1px solid transparent;
+  transition: 0.18s ease;
+}
+
+.ph-item:hover {
+  background: #1d2936;
+  border-color: rgba(255,255,255,0.12);
+}
+
+.ph-item.selected {
+  border: 1px solid #ff8a27;
+  background: #1f2937cc;
+}
+
+/* TAGS */
+.ph-tag {
+  display: inline-block;
+  margin-top: 6px;
+  padding: 4px 10px;
+  border-radius: 8px;
+  background: #4cc9f0;
+  color: #000;
+  font-size: 12px;
+  text-transform: capitalize;
+}
+
+/* MAPA */
+.ph-map-card {
+  background: #1b2733;
+  border-radius: 18px;
+  padding: 12px;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.25);
+  border: 1px solid rgba(255,255,255,0.05);
+
+  max-height: 600px;
+  display: flex;
+  flex-direction: column;
+}
+
+.ph-map-card .mv-container.mini {
+  width: 100%;
+  aspect-ratio: 16/9;
+  overflow: hidden;
+  border-radius: 12px;
+}
+
+/* RESPONSIVE */
+@media (max-width: 1024px) {
+  .ph-layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 600px) {
+  .ph-search,
+  .ph-select {
+    font-size: 13px;
+  }
+}

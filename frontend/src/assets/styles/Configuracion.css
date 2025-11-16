@@ -1,0 +1,24 @@
+/* Contenedor principal */
+.page-container {
+    min-height: 100vh;
+    background: linear-gradient(180deg,#121620,#263141);
+    color: #dbe9f8;
+    font-family: Inter, Helvetica, Arial, sans-serif; /* Tipografía principal */
+}
+
+/* Contenido interno */
+.page-content {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0; /* Sin padding para que quede alineado al top */
+}
+
+/* Título principal */
+.page-title {
+    font-size: 2rem;
+    font-weight: 600;
+    margin: 20px 0;
+    text-align: center;
+}
+
+/* Puedes agregar clases para tarjetas, listas o grids de puntos de hidratación */

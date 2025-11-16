@@ -1,43 +1,57 @@
 from fastapi import APIRouter, HTTPException, Depends, Body
-from backend.models.puntos_hidratacion_mdls import PuntoHidratacionModel
+from backend.models.punto_hidratacion_mdls import PuntoHidratacionModel
 from backend.app.security.jwt_handler import verificar_token, verificar_rol
 from typing import Optional
 
 router = APIRouter(prefix="/puntos_hidratacion", tags=["Puntos de Hidratación"])
 
 
-# Crear punto (solo usuarios autenticados)
+# Crear punto (usuario autenticado)
 @router.post("/")
 def crear_punto(
     nombre: str,
-    direccion: str = None,
+    descripcion: Optional[str] = None,
     latitud: float = None,
     longitud: float = None,
-    fuente: str = "reporte ciudadano",
-    datos_usuario: dict = Depends(verificar_token)
+    datos_usuario: dict = Depends(verificar_token),
+    estado: str = "activa"
 ):
-    """Permite a un usuario registrar un punto de hidratación (inicialmente pendiente)."""
+    """Permite a un usuario registrar un nuevo punto (estado = activa por defecto)."""
+
     try:
-        estado = "pendiente"
+        estado = "activa"
         validado_por = None
-        punto = PuntoHidratacionModel.crear_punto(nombre, direccion, latitud, longitud, estado, fuente, validado_por)
+
+        punto = PuntoHidratacionModel.crear_punto(
+            nombre, descripcion, latitud, longitud, estado, validado_por
+        )
+
         return {"status": "success", "data": punto}
+
     except HTTPException as e:
         raise e
 
 
-# Listar puntos (público, sin restricciones)
+# Listar puntos (público)
 @router.get("/")
 def listar_puntos(estado: Optional[str] = None):
     """Lista todos los puntos (por defecto solo los activos)."""
-    return {"status": "success", "data": PuntoHidratacionModel.listar_puntos(estado or "activo")}
+
+    estado_filtrado = estado or "activa"
+
+    return {
+        "status": "success",
+        "data": PuntoHidratacionModel.listar_puntos(estado_filtrado)
+    }
 
 
-# Obtener punto por ID (público)
+# Obtener punto por ID
 @router.get("/{id_punto}")
 def obtener_punto(id_punto: str):
-    """Obtiene información de un punto de hidratación."""
-    return {"status": "success", "data": PuntoHidratacionModel.obtener_punto_por_id(id_punto)}
+    return {
+        "status": "success",
+        "data": PuntoHidratacionModel.obtener_punto_por_id(id_punto)
+    }
 
 
 # Actualizar punto (solo admin)
@@ -47,8 +61,10 @@ def actualizar_punto(
     data: dict = Body(...),
     datos_usuario: dict = Depends(verificar_rol(["admin"]))
 ):
-    """Permite a un administrador modificar o validar un punto de hidratación."""
-    return {"status": "success", "data": PuntoHidratacionModel.actualizar_punto(id_punto, data)}
+    return {
+        "status": "success",
+        "data": PuntoHidratacionModel.actualizar_punto(id_punto, data)
+    }
 
 
 # Eliminar punto (solo admin)
@@ -57,5 +73,4 @@ def eliminar_punto(
     id_punto: str,
     datos_usuario: dict = Depends(verificar_rol(["admin"]))
 ):
-    """Permite al administrador eliminar un punto de hidratación."""
     return PuntoHidratacionModel.eliminar_punto(id_punto)
