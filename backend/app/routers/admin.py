@@ -9,8 +9,24 @@ router = APIRouter(prefix="/admin", tags=["Administración"])
 @router.put("/validar_reporte/{id_reporte}")
 def validar_reporte(id_reporte: str, datos_usuario: dict = Depends(verificar_rol(["admin"]))):
     try:
-        reporte = AdminModel.validar_reporte(id_reporte)
-        return {"status": "success", "message": "Reporte validado correctamente", "data": reporte}
+        admin_id = datos_usuario["id_usuario"]
+        resultado = AdminModel.validar_reporte(id_reporte, admin_id)
+
+        tipo_entidad = resultado["tipo"]
+        entidad = resultado["entidad_creada"]
+
+        if tipo_entidad == "zona_fresca":
+            mensaje = "Reporte validado y zona fresca creada correctamente"
+        elif tipo_entidad == "hidratacion":
+            mensaje = "Reporte validado y punto de hidratación creado correctamente"
+        else:
+            mensaje = "Reporte validado correctamente"
+
+        return {
+            "status": "success",
+            "message": mensaje,
+            "data": resultado
+        }
     except HTTPException as e:
         raise e
 
