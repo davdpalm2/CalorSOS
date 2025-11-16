@@ -325,18 +325,47 @@
   display: flex;
   flex-direction: column;
   gap: 5px;
+  color: #eaf3ff;
 }
 
 .zf-report-form input,
-.zf-report-form textarea {
+.zf-report-form textarea,
+.zf-report-form select {
   background: #081018;
   border: 1px solid rgba(255,255,255,0.15);
   padding: 9px 10px;
   border-radius: 8px;
   color: #eaf3ff;
+  font-size: 14px;
+  transition: 0.15s ease;
+}
+
+.zf-report-form input:focus,
+.zf-report-form textarea:focus,
+.zf-report-form select:focus {
+  border-color: #ff8a27;
+  box-shadow: 0 0 6px rgba(255,138,39,0.6);
+  outline: none;
+}
+
+.zf-report-form input[readonly] {
+  background: #0a0f1a;
+  color: #b0c4de;
+  cursor: not-allowed;
+}
+
+.zf-report-form select {
+  cursor: pointer;
 }
 
 /* Modal buttons */
+.zf-report-actions {
+  display: flex;
+  gap: 12px;
+  justify-content: flex-end;
+  margin-top: 16px;
+}
+
 .btn-report-submit {
   background: #ff8a27;
   border: none;
@@ -350,6 +379,12 @@
 .btn-report-submit:hover {
   background: #ffa45d;
   transform: translateY(-2px);
+}
+
+.btn-report-submit:disabled {
+  background: #666;
+  cursor: not-allowed;
+  transform: none;
 }
 
 .btn-cancel {
