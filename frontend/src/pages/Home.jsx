@@ -40,6 +40,7 @@ export default function Home() {
     const [formDescripcion, setFormDescripcion] = useState("");
     const [formLatitud, setFormLatitud] = useState(null);
     const [formLongitud, setFormLongitud] = useState(null);
+    const [formTipoZonaFresca, setFormTipoZonaFresca] = useState("");
 
     const handleMapClick = (e) => {
         setFormLatitud(e.latlng.lat);
@@ -101,9 +102,7 @@ export default function Home() {
 
     // Alertas inteligentes
     let alertaTexto = "No hay alertas activas en este momento.";
-    if (weather?.thermal_risk >= 3) alertaTexto = `⚠ Riesgo térmico elevado: ${weather.condicion}`;
-    if (weather?.uv_index >= 7) alertaTexto = `⚠ Índice UV muy alto (${weather.uv_index})`;
-    if (weather?.sensacion_termica >= 40) alertaTexto = `⚠ Sensación térmica muy alta (${weather.sensacion_termica}°C)`;
+
 
     // 👉 Obtener ubicación automáticamente al abrir modal
     useEffect(() => {
@@ -131,6 +130,7 @@ export default function Home() {
         setFormDescripcion("");
         setFormLatitud(null);
         setFormLongitud(null);
+        setFormTipoZonaFresca("");
     };
 
     return (
@@ -195,7 +195,11 @@ export default function Home() {
             <div className="rm-form">
             {/* Tipo obligatorio */}
             <label className="rm-label">Tipo de reporte <span style={{ color: "#ff6f31" }}>*</span></label>
-            <select className="rm-input" value={formTipo} onChange={(e) => setFormTipo(e.target.value)}>
+            <select
+                className={`rm-input ${formTipo === "zona_fresca" ? "rm-select-orange" : formTipo === "hidratacion" ? "rm-select-blue" : ""}`}
+                value={formTipo}
+                onChange={(e) => setFormTipo(e.target.value)}
+            >
                 <option value="">Selecciona…</option>
                 <option value="zona_fresca">Zona fresca</option>
                 <option value="hidratacion">Punto de hidratación</option>
@@ -220,6 +224,23 @@ export default function Home() {
                 onChange={(e) => setFormDescripcion(e.target.value)}
             ></textarea>
 
+            {/* Tipo de zona fresca (si aplica) */}
+            {formTipo === "zona_fresca" && (
+                <>
+                    <label className="rm-label">Tipo de zona fresca *</label>
+                    <select
+                        className="rm-input"
+                        value={formTipoZonaFresca}
+                        onChange={(e) => setFormTipoZonaFresca(e.target.value)}
+                    >
+                        <option value="">Seleccione...</option>
+                        <option value="urbana">Urbana</option>
+                        <option value="natural">Natural</option>
+                        <option value="artificial">Artificial</option>
+                    </select>
+                </>
+            )}
+
             {/* Coordenadas */}
             <label className="rm-label">Ubicación detectada</label>
             <div className="rm-coords">
@@ -242,27 +263,28 @@ export default function Home() {
 
             <button
                 className="rm-btn-send"
-                disabled={!formTipo || !formLatitud}
+                disabled={!formTipo || !formLatitud || (formTipo === "zona_fresca" && !formTipoZonaFresca)}
                 onClick={async () => {
-                const reporte = {
-                    tipo: formTipo,
-                    nombre: formNombre,
-                    descripcion: formDescripcion,
-                    latitud: formLatitud,
-                    longitud: formLongitud,
-                };
+                    const reporte = {
+                        tipo: formTipo,
+                        nombre: formNombre,
+                        descripcion: formDescripcion,
+                        latitud: formLatitud,
+                        longitud: formLongitud,
+                        tipo_zona_fresca: formTipo === "zona_fresca" ? formTipoZonaFresca : null
+                    };
 
-                try {
-                    const res = await crearReporte(reporte); // form data enviado
-                    console.log("Reporte enviado:", res);
-                    alert("Reporte enviado correctamente");
+                    try {
+                        const res = await crearReporte(reporte); // form data enviado
+                        console.log("Reporte enviado:", res);
+                        alert("Reporte enviado correctamente");
 
-                    setOpenReportModal(false);
-                    resetForm();
-                } catch (error) {
-                    alert("Ocurrió un error al enviar el reporte.");
-                    console.error(error);
-                }
+                        setOpenReportModal(false);
+                        resetForm();
+                    } catch (error) {
+                        alert("Ocurrió un error al enviar el reporte.");
+                        console.error(error);
+                    }
                 }}
             >
                 Enviar reporte
