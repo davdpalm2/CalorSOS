@@ -30,6 +30,26 @@ const zonasService = {
             throw error;
         }
     },
+
+    async actualizarZona(id, data) {
+        try {
+            const res = await API.put(`/zonas_frescas/${id}`, data);
+            return res.data.data;
+        } catch (error) {
+            console.error("Error al actualizar zona fresca:", error);
+            throw error;
+        }
+    },
+
+    async eliminarZona(id) {
+        try {
+            const res = await API.delete(`/zonas_frescas/${id}`);
+            return res.data;
+        } catch (error) {
+            console.error("Error al eliminar zona fresca:", error);
+            throw error;
+        }
+    },
 };
 
 export default zonasService;

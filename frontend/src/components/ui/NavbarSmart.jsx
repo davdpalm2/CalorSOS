@@ -129,8 +129,8 @@ export default function NavbarSmart() {
               )}
             </div>
 
-            <button 
-              className="ns-profile-item" 
+            <button
+              className="ns-profile-item"
               onClick={() => {
                 setOpenMenu(false); // Cerrar dropdown
                 setTimeout(() => navigate("/perfil"), 150); // Pequeño delay para animación
@@ -138,8 +138,8 @@ export default function NavbarSmart() {
             >
               Ver perfil
             </button>
-            <button 
-              className="ns-profile-item" 
+            <button
+              className="ns-profile-item"
               onClick={() => {
                 setOpenMenu(false);
                 navigate("/configuracion");
@@ -147,6 +147,17 @@ export default function NavbarSmart() {
             >
               Configuración
             </button>
+            {user && user.rol === "admin" && (
+              <button
+                className="ns-profile-item"
+                onClick={() => {
+                  setOpenMenu(false);
+                  navigate("/admin");
+                }}
+              >
+                Panel Admin
+              </button>
+            )}
 
             <hr />
 

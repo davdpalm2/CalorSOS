@@ -13,6 +13,7 @@ import PuntosHidratacion from "../pages/PuntosHidratacion.jsx";
 import ZonasFrescas from "../pages/ZonasFrescas.jsx";
 import Consejos from "../pages/Consejos.jsx";
 import Configuracion from "../pages/Configuracion.jsx";
+import Admin from "../pages/Admin.jsx";
 
 export default function AppRouter() {
   const { user, loading } = useContext(UserContext);
@@ -79,7 +80,12 @@ export default function AppRouter() {
         path="/configuracion"
         element={user ? <Configuracion /> : <Navigate to="/login" />}
       />
-      
+
+      <Route
+        path="/admin"
+        element={user && user.rol === "admin" ? <Admin /> : <Navigate to="/" />}
+      />
+
       {/* Fallback */}
       <Route path="*" element={<Navigate to="/" />} />
     </Routes>
