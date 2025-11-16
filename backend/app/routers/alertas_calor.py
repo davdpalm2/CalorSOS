@@ -1,3 +1,4 @@
+# backend/app/routers/alertas_calor.py
 from fastapi import APIRouter, HTTPException, Depends, Body
 from typing import Optional
 from backend.models.alertas_calor_mdls import AlertaCalorModel
