@@ -136,10 +136,11 @@
   top: 70px;
   right: 0;
   width: 200px;
-  background: #ffffff;
+  background: #1f2532;
   border-radius: 10px;
   padding: 12px;
   box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+  border: 1px solid rgba(255,255,255,0.02);
   animation: fadeMenu 0.15s ease-out;
   z-index: 1000; /* Asegura que esté por encima de otros elementos */
 }
@@ -152,14 +153,14 @@
 /* Header del menú */
 .ns-profile-header {
   padding-bottom: 10px;
-  border-bottom: 1px solid #000000;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
   margin-bottom: 5px;
 }
 
 .ns-profile-name {
   font-size: 15px;
   font-weight: 700;
-  color: #1f2532;
+  color: #dbe9f8;
 }
 
 
@@ -174,18 +175,34 @@
   cursor: pointer;
   border-radius: 6px;
   transition: 0.15s;
-  color: #000000;
+  color: #dbe9f8;
 }
 
 .ns-profile-item:hover {
-  background: #f3cba6;
+  background: rgba(255,138,39,0.1);
+}
+
+/* Admin Panel Link */
+.ns-profile-item.admin-link {
+  color: #ff6b00;
+  font-weight: 600;
+}
+
+.ns-profile-item.admin-link:hover {
+  background: rgba(255, 107, 0, 0.1);
+  color: #e55a00;
 }
 
 /* Logout */
 .ns-profile-item.logout {
-  color: #fe0c04;
+  color: #ff6b6b;
   font-weight: 600;
   margin-top: 5px;
+}
+
+.ns-profile-item.logout:hover {
+  background: rgba(255, 107, 107, 0.1);
+  color: #ff5252;
 }
 
 /* MEDIA QUERIES PARA RESPONSIVE --------------------------- */
