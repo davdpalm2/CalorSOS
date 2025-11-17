@@ -3,7 +3,9 @@ import API from "./api";
 const zonasService = {
     async listarZonas(estado = "activa") {
         try {
-            const res = await API.get(`/zonas_frescas?estado=${estado}`);
+            // Si estado es null o vacío, obtener todas las zonas (para admin)
+            const url = estado ? `/zonas_frescas?estado=${estado}` : "/zonas_frescas";
+            const res = await API.get(url);
             return res.data.data;
         } catch (error) {
             console.error("Error al listar zonas frescas:", error);
