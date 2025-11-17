@@ -6,6 +6,7 @@ import { listarReportes, validarReporte, rechazarReporte } from "../services/rep
 import zonasService from "../services/zonasService.js";
 import puntosService from "../services/puntosService.js";
 import { listarUsuarios, actualizarUsuario, eliminarUsuario } from "../services/usuariosService.js";
+import ReportModal from "../components/report/ReportModal.jsx";
 import "../assets/styles/Admin.css";
 
 export default function Admin() {
@@ -27,6 +28,12 @@ export default function Admin() {
   // Estados para usuarios
   const [usuarios, setUsuarios] = useState([]);
   const [loadingUsuarios, setLoadingUsuarios] = useState(false);
+
+  // Estados para modales
+  const [openEditZonaModal, setOpenEditZonaModal] = useState(false);
+  const [zonaToEdit, setZonaToEdit] = useState(null);
+  const [openEditPuntoModal, setOpenEditPuntoModal] = useState(false);
+  const [puntoToEdit, setPuntoToEdit] = useState(null);
 
   // Cargar datos según la pestaña activa
   useEffect(() => {
@@ -57,7 +64,8 @@ export default function Admin() {
   const cargarZonas = async () => {
     try {
       setLoadingZonas(true);
-      const data = await zonasService.listarZonas();
+      // Cargar todas las zonas (activas e inactivas) para admin
+      const data = await zonasService.listarZonas(null);
       setZonas(data);
     } catch (error) {
       console.error("Error cargando zonas:", error);
@@ -70,7 +78,8 @@ export default function Admin() {
   const cargarPuntos = async () => {
     try {
       setLoadingPuntos(true);
-      const data = await puntosService.obtenerPuntosHidratacion();
+      // Para administradores: mostrar TODOS los puntos (activos e inactivos)
+      const data = await puntosService.obtenerPuntosHidratacion(null); // null = todos los puntos
       setPuntos(data);
     } catch (error) {
       console.error("Error cargando puntos:", error);
@@ -227,15 +236,25 @@ export default function Admin() {
             <h2>Gestión de Reportes</h2>
             {loadingReportes ? (
               <p>Cargando reportes...</p>
+            ) : reportes.length === 0 ? (
+              <div className="admin-empty-state">
+                <p>No hay reportes registrados</p>
+              </div>
             ) : (
               <div className="admin-list">
                 {reportes.map((reporte) => (
                   <div key={reporte.id_reporte} className="admin-item">
                     <div className="admin-item-info">
                       <h3>{reporte.nombre || "Sin nombre"}</h3>
-                      <p>Tipo: {reporte.tipo}</p>
-                      <p>Estado: {reporte.estado}</p>
-                      <p>Usuario: {reporte.id_usuario}</p>
+                      <p><strong>Tipo:</strong> {reporte.tipo}</p>
+                      <p><strong>Estado:</strong> {reporte.estado}</p>
+                      <p><strong>Usuario ID:</strong> {reporte.id_usuario}</p>
+                      {reporte.descripcion && <p><strong>Descripción:</strong> {reporte.descripcion}</p>}
+                      {reporte.latitud && reporte.longitud && (
+                        <p><strong>Ubicación:</strong> {reporte.latitud.toFixed(6)}, {reporte.longitud.toFixed(6)}</p>
+                      )}
+                      {reporte.tipo_zona_fresca && <p><strong>Tipo Zona:</strong> {reporte.tipo_zona_fresca}</p>}
+                      {reporte.fecha_reporte && <p><strong>Fecha:</strong> {new Date(reporte.fecha_reporte).toLocaleString()}</p>}
                     </div>
                     <div className="admin-item-actions">
                       {reporte.estado === "pendiente" && (
@@ -273,8 +292,14 @@ export default function Admin() {
                   <div key={zona.id_zona} className="admin-item">
                     <div className="admin-item-info">
                       <h3>{zona.nombre}</h3>
-                      <p>Estado: {zona.estado}</p>
-                      <p>Tipo: {zona.tipo}</p>
+                      <p><strong>Estado:</strong> {zona.estado}</p>
+                      <p><strong>Tipo:</strong> {zona.tipo}</p>
+                      {zona.descripcion && <p><strong>Descripción:</strong> {zona.descripcion}</p>}
+                      {zona.latitud && zona.longitud && (
+                        <p><strong>Ubicación:</strong> {zona.latitud.toFixed(6)}, {zona.longitud.toFixed(6)}</p>
+                      )}
+                      {zona.validado_por && <p><strong>Validado por:</strong> {zona.validado_por}</p>}
+                      {zona.fecha_registro && <p><strong>Fecha registro:</strong> {new Date(zona.fecha_registro).toLocaleString()}</p>}
                     </div>
                     <div className="admin-item-actions">
                       <button
@@ -285,6 +310,15 @@ export default function Admin() {
                         }}
                       >
                         Cambiar Estado
+                      </button>
+                      <button
+                        className="admin-btn edit"
+                        onClick={() => {
+                          setZonaToEdit(zona);
+                          setOpenEditZonaModal(true);
+                        }}
+                      >
+                        Editar Datos
                       </button>
                       <button
                         className="admin-btn delete"
@@ -311,7 +345,13 @@ export default function Admin() {
                   <div key={punto.id_punto} className="admin-item">
                     <div className="admin-item-info">
                       <h3>{punto.nombre}</h3>
-                      <p>Estado: {punto.estado}</p>
+                      <p><strong>Estado:</strong> {punto.estado}</p>
+                      {punto.descripcion && <p><strong>Descripción:</strong> {punto.descripcion}</p>}
+                      {punto.latitud && punto.longitud && (
+                        <p><strong>Ubicación:</strong> {punto.latitud.toFixed(6)}, {punto.longitud.toFixed(6)}</p>
+                      )}
+                      {punto.validado_por && <p><strong>Validado por:</strong> {punto.validado_por}</p>}
+                      {punto.fecha_registro && <p><strong>Fecha registro:</strong> {new Date(punto.fecha_registro).toLocaleString()}</p>}
                     </div>
                     <div className="admin-item-actions">
                       <button
@@ -322,6 +362,15 @@ export default function Admin() {
                         }}
                       >
                         Cambiar Estado
+                      </button>
+                      <button
+                        className="admin-btn edit"
+                        onClick={() => {
+                          setPuntoToEdit(punto);
+                          setOpenEditPuntoModal(true);
+                        }}
+                      >
+                        Editar Datos
                       </button>
                       <button
                         className="admin-btn delete"
@@ -352,21 +401,25 @@ export default function Admin() {
                       <p>Rol: {usuario.rol}</p>
                     </div>
                     <div className="admin-item-actions">
-                      <button
-                        className="admin-btn edit"
-                        onClick={() => {
-                          const nuevoRol = usuario.rol === "admin" ? "usuario" : "admin";
-                          handleActualizarUsuario(usuario.id_usuario, { rol: nuevoRol });
-                        }}
-                      >
-                        Cambiar Rol
-                      </button>
-                      <button
-                        className="admin-btn delete"
-                        onClick={() => handleEliminarUsuario(usuario.id_usuario)}
-                      >
-                        Eliminar
-                      </button>
+                      {usuario.rol !== "admin" && (
+                        <button
+                          className="admin-btn edit"
+                          onClick={() => {
+                            const nuevoRol = usuario.rol === "admin" ? "usuario" : "admin";
+                            handleActualizarUsuario(usuario.id_usuario, { rol: nuevoRol });
+                          }}
+                        >
+                          Cambiar Rol
+                        </button>
+                      )}
+                      {usuario.rol !== "admin" && (
+                        <button
+                          className="admin-btn delete"
+                          onClick={() => handleEliminarUsuario(usuario.id_usuario)}
+                        >
+                          Eliminar
+                        </button>
+                      )}
                     </div>
                   </div>
                 ))}
@@ -375,6 +428,158 @@ export default function Admin() {
           </div>
         )}
       </div>
+
+      {/* Modal para editar zona */}
+      <ReportModal
+        open={openEditZonaModal}
+        onClose={() => {
+          setOpenEditZonaModal(false);
+          setZonaToEdit(null);
+        }}
+      >
+        <h2 className="rm-title">Editar Zona Fresca</h2>
+        <form
+          className="rm-form"
+          onSubmit={async (e) => {
+            e.preventDefault();
+            const formData = new FormData(e.target);
+            const updates = {
+              nombre: formData.get("nombre"),
+              descripcion: formData.get("descripcion"),
+              tipo: formData.get("tipo")
+            };
+
+            try {
+              await handleActualizarZona(zonaToEdit.id_zona, updates);
+              setOpenEditZonaModal(false);
+              setZonaToEdit(null);
+            } catch (error) {
+              alert("Error al actualizar zona");
+            }
+          }}
+        >
+          <div>
+            <label className="rm-label" htmlFor="nombre">Nombre:</label>
+            <input
+              className="rm-input"
+              type="text"
+              id="nombre"
+              name="nombre"
+              defaultValue={zonaToEdit?.nombre || ""}
+              required
+            />
+          </div>
+
+          <div>
+            <label className="rm-label" htmlFor="descripcion">Descripción:</label>
+            <textarea
+              className="rm-textarea"
+              id="descripcion"
+              name="descripcion"
+              defaultValue={zonaToEdit?.descripcion || ""}
+            />
+          </div>
+
+          <div>
+            <label className="rm-label" htmlFor="tipo">Tipo:</label>
+            <select
+              className="rm-input"
+              id="tipo"
+              name="tipo"
+              defaultValue={zonaToEdit?.tipo || "urbana"}
+              required
+            >
+              <option value="urbana">Urbana</option>
+              <option value="natural">Natural</option>
+              <option value="artificial">Artificial</option>
+            </select>
+          </div>
+
+          <div className="rm-actions">
+            <button
+              type="button"
+              className="rm-btn-cancel"
+              onClick={() => {
+                setOpenEditZonaModal(false);
+                setZonaToEdit(null);
+              }}
+            >
+              Cancelar
+            </button>
+            <button type="submit" className="rm-btn-send">
+              Actualizar Zona
+            </button>
+          </div>
+        </form>
+      </ReportModal>
+
+      {/* Modal para editar punto */}
+      <ReportModal
+        open={openEditPuntoModal}
+        onClose={() => {
+          setOpenEditPuntoModal(false);
+          setPuntoToEdit(null);
+        }}
+      >
+        <h2 className="rm-title">Editar Punto de Hidratación</h2>
+        <form
+          className="rm-form"
+          onSubmit={async (e) => {
+            e.preventDefault();
+            const formData = new FormData(e.target);
+            const updates = {
+              nombre: formData.get("nombre"),
+              descripcion: formData.get("descripcion")
+            };
+
+            try {
+              await handleActualizarPunto(puntoToEdit.id_punto, updates);
+              setOpenEditPuntoModal(false);
+              setPuntoToEdit(null);
+            } catch (error) {
+              alert("Error al actualizar punto");
+            }
+          }}
+        >
+          <div>
+            <label className="rm-label" htmlFor="nombre_punto">Nombre:</label>
+            <input
+              className="rm-input"
+              type="text"
+              id="nombre_punto"
+              name="nombre"
+              defaultValue={puntoToEdit?.nombre || ""}
+              required
+            />
+          </div>
+
+          <div>
+            <label className="rm-label" htmlFor="descripcion_punto">Descripción:</label>
+            <textarea
+              className="rm-textarea"
+              id="descripcion_punto"
+              name="descripcion"
+              defaultValue={puntoToEdit?.descripcion || ""}
+            />
+          </div>
+
+          <div className="rm-actions">
+            <button
+              type="button"
+              className="rm-btn-cancel"
+              onClick={() => {
+                setOpenEditPuntoModal(false);
+                setPuntoToEdit(null);
+              }}
+            >
+              Cancelar
+            </button>
+            <button type="submit" className="rm-btn-send">
+              Actualizar Punto
+            </button>
+          </div>
+        </form>
+      </ReportModal>
     </div>
   );
 }
