@@ -28,11 +28,11 @@ export default function PuntosHidratacion() {
         longitud: "",
     });
 
-    // Cargar puntos
+    // Cargar puntos - solo activos para usuarios normales
     useEffect(() => {
         const load = async () => {
             try {
-                const data = await puntosService.obtenerPuntosHidratacion();
+                const data = await puntosService.obtenerPuntosHidratacion("activa");
                 setPuntos(data);
                 setFiltered(data);
             } catch (e) {
