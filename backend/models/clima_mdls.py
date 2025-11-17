@@ -87,16 +87,17 @@ class ClimaModel:
             hydration_level = round(1 + (humedad / 100) * 3 + (temperatura / 40) * 5)
             hydration_level = min(10, max(1, hydration_level))
 
-            wbgt = (0.7 * temperatura) + (0.3 * (humedad / 10))
-            if wbgt < 22:
+            # Usar sensación térmica en lugar de temperatura para mejor precisión en climas tropicales
+            wbgt = (0.7 * feels_like) + (0.3 * (humedad / 10))
+            if wbgt < 24:
                 thermal_risk = 0
-            elif wbgt < 25:
+            elif wbgt < 27:
                 thermal_risk = 1
-            elif wbgt < 28:
+            elif wbgt < 30:
                 thermal_risk = 2
-            elif wbgt < 31:
+            elif wbgt < 33:
                 thermal_risk = 3
-            elif wbgt < 35:
+            elif wbgt < 36:
                 thermal_risk = 4
             else:
                 thermal_risk = 5
