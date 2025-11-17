@@ -34,13 +34,13 @@ class AdminModel:
                 }
                 nueva_zona = ZonaFrescaModel.crear_zona(**zona_data)
 
-                # Marcar reporte como validado
-                ReporteModel.actualizar_reporte(id_reporte, {"estado": "validado"})
+                # Eliminar el reporte después de crear la zona
+                ReporteModel.eliminar_reporte(id_reporte)
 
                 return {
                     "tipo": "zona_fresca",
                     "entidad_creada": nueva_zona,
-                    "reporte": reporte
+                    "reporte_eliminado": reporte
                 }
 
             elif reporte["tipo"] == "hidratacion":
@@ -55,13 +55,13 @@ class AdminModel:
                 }
                 nuevo_punto = PuntoHidratacionModel.crear_punto(**punto_data)
 
-                # Marcar reporte como validado
-                ReporteModel.actualizar_reporte(id_reporte, {"estado": "validado"})
+                # Eliminar el reporte después de crear el punto
+                ReporteModel.eliminar_reporte(id_reporte)
 
                 return {
                     "tipo": "hidratacion",
                     "entidad_creada": nuevo_punto,
-                    "reporte": reporte
+                    "reporte_eliminado": reporte
                 }
 
             else:
