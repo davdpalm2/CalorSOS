@@ -149,13 +149,13 @@ export default function NavbarSmart() {
             </button>
             {user && user.rol === "admin" && (
               <button
-                className="ns-profile-item"
+                className="ns-profile-item admin-link"
                 onClick={() => {
                   setOpenMenu(false);
                   navigate("/admin");
                 }}
               >
-                Panel Admin
+                Panel de Administración
               </button>
             )}
 
