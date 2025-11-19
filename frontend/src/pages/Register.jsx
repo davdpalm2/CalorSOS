@@ -38,9 +38,20 @@ export default function Register() {
   const handleChange = (e) =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
 
+  const validateEmail = (email) => {
+    const regex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    return regex.test(email);
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setErrorMsg("");
+
+    if (!validateEmail(formData.correo)) {
+      setErrorMsg("Correo electrónico no válido. Debe tener formato usuario@dominio.com");
+      return;
+    }
+
     setLoading(true);
 
     try {
