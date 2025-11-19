@@ -242,4 +242,5 @@ export const consejosData = [
     }
 ];
 
+export default consejosData;
 // Fin consejosData.js
