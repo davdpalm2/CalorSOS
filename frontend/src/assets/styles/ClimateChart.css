@@ -31,6 +31,7 @@
     justify-content: center;
     gap: 12px;
     margin-bottom: 20px;
+    flex-wrap: wrap;
 }
 
 .chart-buttons button {
@@ -43,6 +44,7 @@
     cursor: pointer;
     transition: all 0.2s ease;
     border: 1px solid var(--border);
+    min-width: 80px;
 }
 
 .chart-buttons button:hover {
@@ -122,6 +124,76 @@
     background: var(--bg-primary);
     z-index: 9999;
     opacity: 0.95;
+}
+
+/* Responsive para móviles */
+@media (max-width: 768px) {
+    .chart-container {
+        padding: 18px 16px;
+        margin-top: 16px;
+    }
+
+    .chart-container h3 {
+        font-size: 16px;
+        margin-bottom: 14px;
+    }
+
+    .chart-buttons {
+        gap: 8px;
+        margin-bottom: 16px;
+    }
+
+    .chart-buttons button {
+        padding: 6px 12px;
+        font-size: 13px;
+        min-width: 70px;
+    }
+}
+
+@media (max-width: 600px) {
+    .chart-container {
+        padding: 16px 12px;
+        margin-top: 14px;
+    }
+
+    .chart-container h3 {
+        font-size: 15px;
+        margin-bottom: 12px;
+    }
+
+    .chart-buttons {
+        gap: 6px;
+        margin-bottom: 14px;
+    }
+
+    .chart-buttons button {
+        padding: 5px 10px;
+        font-size: 12px;
+        min-width: 60px;
+    }
+}
+
+@media (max-width: 480px) {
+    .chart-container {
+        padding: 14px 10px;
+        margin-top: 12px;
+    }
+
+    .chart-container h3 {
+        font-size: 14px;
+        margin-bottom: 10px;
+    }
+
+    .chart-buttons {
+        gap: 4px;
+        margin-bottom: 12px;
+    }
+
+    .chart-buttons button {
+        padding: 4px 8px;
+        font-size: 11px;
+        min-width: 50px;
+    }
 }
 
 /* Fin ClimateChart.css */

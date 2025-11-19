@@ -46,6 +46,59 @@
     min-width: 160px;
 }
 
+/* Responsive para móviles */
+@media (max-width: 768px) {
+    .rca-wrap {
+        padding: 14px 16px;
+    }
+
+    .rca-inner {
+        flex-direction: column;
+        gap: 12px;
+        padding: 16px;
+        text-align: center;
+    }
+
+    .rca-text {
+        font-size: 13px;
+        margin-bottom: 4px;
+    }
+
+    .rca-action {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        width: 100%;
+    }
+
+    .rca-btn {
+        min-width: auto;
+        width: 100%;
+        padding: 14px 16px;
+        font-size: 15px;
+    }
+}
+
+@media (max-width: 480px) {
+    .rca-wrap {
+        padding: 12px 12px;
+    }
+
+    .rca-inner {
+        padding: 14px;
+        gap: 10px;
+    }
+
+    .rca-text {
+        font-size: 12px;
+    }
+
+    .rca-btn {
+        padding: 12px 14px;
+        font-size: 14px;
+    }
+}
+
 .rca-btn:hover {
     background:#e6671e;
     transform: translateY(-2px);

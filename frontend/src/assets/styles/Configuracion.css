@@ -207,7 +207,7 @@ input:checked + .slider:before {
 
 /* Botones */
 .config-btn {
-    padding: 10px 20px;
+    padding: 10px 300px;
     border: none;
     border-radius: 6px;
     font-size: 0.9rem;

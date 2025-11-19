@@ -47,17 +47,63 @@
     font-size: 13px;
 }
 /* Responsive adjustments */
+@media (max-width: 768px) {
+    .ip-container {
+        padding: 18px;
+    }
+
+    .ip-item {
+        margin-bottom: 16px;
+    }
+
+    .ip-title {
+        font-size: 14px;
+        margin-bottom: 6px;
+    }
+
+    .ip-value {
+        font-size: 12px;
+    }
+}
+
 @media (max-width: 600px) {
     .ip-container {
         padding: 16px;
     }
 
+    .ip-item {
+        margin-bottom: 14px;
+    }
+
     .ip-title {
-        font-size: 14px;
+        font-size: 13px;
+        margin-bottom: 4px;
     }
 
     .ip-value {
+        font-size: 11px;
+    }
+
+    .ip-bar {
+        height: 8px;
+    }
+}
+
+@media (max-width: 480px) {
+    .ip-container {
+        padding: 14px;
+    }
+
+    .ip-item {
+        margin-bottom: 12px;
+    }
+
+    .ip-title {
         font-size: 12px;
+    }
+
+    .ip-value {
+        font-size: 10px;
     }
 }
 /* ========================================== */
