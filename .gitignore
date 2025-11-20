@@ -13,10 +13,8 @@ env/
 venv/
 .venv/
 ENV/
-*.env
+calorsos.env
 # Archivos de variables de entorno
-.env
-.env.*
 !.env.example  # Mantener el archivo de ejemplo
 
 # =============================================
