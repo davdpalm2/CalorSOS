@@ -67,8 +67,8 @@ app.add_middleware(
     CORSMiddleware,
     allow_origins=["https://calorsos.onrender.com"],  # En producción, reemplazar con el dominio del frontend
     allow_credentials=True,
-    allow_methods=["https://calorsos.onrender.com"],
-    allow_headers=["https://calorsos.onrender.com"],
+    allow_methods=["*"],
+    allow_headers=["*"],
 )
 
 # Registrar todos los routers en la aplicación
