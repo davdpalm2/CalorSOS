@@ -65,7 +65,13 @@ scheduler.start()
 # Configurar middleware CORS para permitir acceso desde frontend
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["https://calorsos.onrender.com"],  # En producción, reemplazar con el dominio del frontend
+    allow_origins=[
+        "https://calorsos.onrender.com",  # frontend producción
+        "http://localhost:4173",          # frontend local
+        "http://localhost:5173",          # Vite usa ambos según setup
+        "http://127.0.0.1:5173",
+        "http://127.0.0.1:4173",
+    ],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
