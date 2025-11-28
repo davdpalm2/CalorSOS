@@ -194,6 +194,16 @@ export default function Home() {
                                         <span className="map-stat-item">Puntos de Hidratacion en total: {puntosHidratacion.length}</span>
                                     </div>
                                 </div>
+                                <div className="map-legend">
+                                    <div className="legend-item">
+                                        <span className="legend-color legend-green"></span>
+                                        Zonas Frescas
+                                    </div>
+                                    <div className="legend-item">
+                                        <span className="legend-color legend-blue"></span>
+                                        Puntos de Hidratación
+                                    </div>
+                                </div>
                             </div>
                             <MapView
                                 mini={true}
