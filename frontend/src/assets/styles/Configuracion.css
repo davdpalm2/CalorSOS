@@ -250,6 +250,12 @@ input:checked + .slider:before {
     .toggle-btn {
         flex: 1;
     }
+    
+    .config-btn {
+        padding: 10px 20px;
+        font-size: 0.9rem;
+        width: 100%;
+    }
 }
 
 /* Fin Configuracion.css */
