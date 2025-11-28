@@ -19,7 +19,6 @@ export default function StatCard({ title, value, unit }) {
                 <span className="sc-number">{value}</span>
                 <span className="sc-unit">{unit}</span>
             </div>
-            <div className="sc-foot">Última actualización: —</div>
         </div>
     );
 }
