@@ -6,7 +6,7 @@
 
 import React, { useState, useEffect } from 'react';
 import notificacionesService from '../../services/notificacionesService.js';
-import './NotificationSettings.css';
+import "../../assets/styles/NotificationSettings.css";
 
 const NotificationSettings = ({ isOpen, onClose }) => {
     const [settings, setSettings] = useState({
