@@ -157,6 +157,7 @@ export default function MapView({
     selectedMarker = null,
     markerPosition = null,
     showExpandButton = true,
+    touchZoom = true,
 }) {
     // Referencias para marcadores
     const markerRefs = useRef({});
@@ -192,7 +193,8 @@ export default function MapView({
                 scrollWheelZoom={true}
                 doubleClickZoom={!mini}
                 zoomControl={false}
-                touchZoom={!mini}
+                touchZoom={true}
+                tap={true}
                 boxZoom={!mini}
                 keyboard={!mini}
                 attributionControl={false}
