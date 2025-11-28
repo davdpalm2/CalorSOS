@@ -307,8 +307,8 @@
 ================================*/
 
 .btn-reportar-zona {
-  background: #ff8a27;
-  color: black;
+  background: #4CAF50;
+  color: white;
   border: none;
   padding: 11px 14px;
   font-weight: 700;
@@ -320,7 +320,7 @@
 }
 
 .btn-reportar-zona:hover {
-  background: #ffa45d;
+  background: #66BB6A;
   transform: translateY(-2px);
 }
 
@@ -394,11 +394,11 @@
 
 .zf-report-modal {
   background: #0f1720;
-  padding: 22px;
-  border-radius: 14px;
-  width: 520px;
+  padding: 18px;
+  border-radius: 12px;
+  width: 380px;
   max-width: 92%;
-  max-height: 90vh;
+  max-height: 88vh;
   overflow-y: auto;
   border: 1px solid rgba(255,255,255,0.08);
   box-shadow: 0 10px 35px rgba(0,0,0,0.65);
@@ -413,15 +413,15 @@
   background: transparent;
   border: none;
   color: #ff8a27;
-  font-size: 18px;
+  font-size: 15px;
   cursor: pointer;
 }
 
 .zf-report-form {
   display: flex;
   flex-direction: column;
-  gap: 12px;
-  margin-top: 10px;
+  gap: 10px;
+  margin-top: 6px;
 }
 
 .zf-report-form label {
@@ -437,10 +437,10 @@
 .zf-report-form select {
   background: #081018;
   border: 1px solid rgba(255,255,255,0.15);
-  padding: 9px 10px;
-  border-radius: 8px;
+  padding: 7px 9px;
+  border-radius: 7px;
+  font-size: 13px;
   color: #eaf3ff;
-  font-size: 14px;
   transition: 0.15s ease;
 }
 
@@ -633,5 +633,59 @@
   height: 28px;
   border-width: 3px;
 }
+
+/* ===============================
+  LIGHT THEME MODAL
+================================*/
+
+.light-theme .zf-report-backdrop {
+  background: rgba(0,0,0,0.35); /* Más suave en claro */
+}
+
+.light-theme .zf-report-modal {
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  border: 1px solid var(--border);
+  box-shadow: 0 10px 35px var(--shadow);
+}
+
+.light-theme .zf-report-form label {
+  color: var(--text-primary);
+}
+
+.light-theme .zf-report-form input,
+.light-theme .zf-report-form textarea,
+.light-theme .zf-report-form select {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border);
+  color: var(--text-primary);
+}
+
+.light-theme .zf-report-form input:focus,
+.light-theme .zf-report-form textarea:focus,
+.light-theme .zf-report-form select:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 6px rgba(255,107,53,0.6);
+}
+
+.light-theme .btn-cancel {
+  color: var(--text-primary);
+  border: 1px solid var(--border);
+}
+
+.light-theme .btn-cancel:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.light-theme .btn-report-submit {
+  background: var(--accent);
+  color: white;
+}
+
+.light-theme .btn-report-submit:hover {
+  background: #ff9f60;
+}
+
 
 /* Fin ZonasFrescas.css */
