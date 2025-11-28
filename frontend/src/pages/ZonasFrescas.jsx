@@ -329,6 +329,7 @@ export default function ZonasFrescas() {
                 {/* Mapa interactivo para seleccionar ubicación */}
                 <div className="zf-map-selector">
                     <p>Selecciona la ubicación en el mapa:</p>
+                    <strong> <h6> (Mueva el marcador para seleccionar la zona fresca)</h6> </strong>
                     <MapView
                         mini={true}
                         onSelectMarker={(coords) => {
@@ -345,22 +346,6 @@ export default function ZonasFrescas() {
                         showExpandButton={false}
                     />
                 </div>
-
-                <label>
-                    Latitud
-                    <input
-                    value={reportData.latitud || ""}
-                    readOnly
-                    />
-                </label>
-
-                <label>
-                    Longitud
-                    <input
-                    value={reportData.longitud || ""}
-                    readOnly
-                    />
-                </label>
 
                 <div className="zf-report-actions">
                     <button

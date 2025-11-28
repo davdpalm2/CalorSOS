@@ -296,6 +296,7 @@ export default function PuntosHidratacion() {
                             {/* Mapa interactivo para seleccionar ubicación */}
                             <div className="ph-map-selector">
                                 <p>Selecciona la ubicación en el mapa:</p>
+                                <strong><h6> (Mueva el marcador para seleccionar el punto de hidratacion)</h6></strong>
                                 <MapView
                                     mini={true}
                                     onSelectMarker={(coords) => {
@@ -312,22 +313,6 @@ export default function PuntosHidratacion() {
                                     showExpandButton={false}
                                 />
                             </div>
-
-                            <label>
-                                Latitud
-                                <input
-                                    value={reportData.latitud || ""}
-                                    readOnly
-                                />
-                            </label>
-
-                            <label>
-                                Longitud
-                                <input
-                                    value={reportData.longitud || ""}
-                                    readOnly
-                                />
-                            </label>
 
                             <div className="ph-report-actions">
                                 <button type="submit" className="btn-report-submit" disabled={reportLoading}>
