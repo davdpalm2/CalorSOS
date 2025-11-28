@@ -142,6 +142,18 @@ export default function TempHumedadChart() {
                     />
                 </LineChart>
             </ResponsiveContainer>
+            
+            {/* Leyenda debajo del gráfico */}
+            <div className="chart-legend">
+                <span>
+                    <span className="dot dot-temp"></span>
+                    Temperatura en C° (Izquierda)
+                </span>
+                <span>
+                    <span className="dot dot-hum"></span>
+                    Humedad en % (Derecha)
+                </span>
+            </div>
         </div>
     );
 }
