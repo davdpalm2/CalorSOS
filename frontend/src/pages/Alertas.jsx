@@ -35,7 +35,12 @@ export default function Alertas() {
             setAlertaActual(resActual.data.data);
 
             const historialData = await alertasService.listarAlertas();
-            setHistorial(historialData || []);
+
+            // Sort by fecha_alerta descending (most recent first) and limit to 10
+            const sortedHistorial = (historialData || []).sort((a, b) => new Date(b.fecha_alerta) - new Date(a.fecha_alerta));
+            const limitedHistorial = sortedHistorial.slice(0, 10);
+            
+            setHistorial(limitedHistorial);
         } catch (err) {
             console.error("Error cargando alertas:", err);
         } finally {
