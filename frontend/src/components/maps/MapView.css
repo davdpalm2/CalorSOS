@@ -125,4 +125,122 @@
     transform: translateY(-4px);
 }
 
+/* Marcador negro para ubicacion del usuario */
+.black-div-marker {
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+    background-color: black;
+    border-radius: 50%;
+    border: 2px solid white; /* opcional, mismo estilo que el rojo si lo usas */
+}
+
+
+/* ================================================
+   INDICADORES DE UBICACIÓN
+   ================================================ */
+
+/* Mensaje de error de ubicación */
+.mv-location-error {
+    position: absolute;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgba(220, 53, 69, 0.95);
+    color: white;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    z-index: 1000;
+    box-shadow: 0 4px 12px rgba(220, 53, 69, 0.3);
+    animation: slideDown 0.3s ease;
+}
+
+/* Mensaje de carga de ubicación */
+.mv-location-loading {
+    position: absolute;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgba(37, 99, 235, 0.95);
+    color: white;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    z-index: 1000;
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    animation: slideDown 0.3s ease;
+}
+
+/* Spinner de carga */
+.mv-loading-spinner {
+    width: 16px;
+    height: 16px;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-top-color: white;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+}
+
+/* Animación de deslizamiento hacia abajo */
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateX(-50%) translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
+    }
+}
+
+/* Animación de rotación para el spinner */
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .mv-location-error,
+    .mv-location-loading {
+        font-size: 12px;
+        padding: 8px 16px;
+        max-width: 90%;
+    }
+}
+
+/* ================================================
+   BADGE EN POPUP PARA MARCADOR MÁS CERCANO
+   ================================================ */
+
+.popup-badge {
+    background: linear-gradient(135deg, #2563eb, #1d4ed8);
+    color: white;
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-size: 11px;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 8px;
+    box-shadow: 0 2px 8px rgba(37, 99, 235, 0.3);
+    animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+    0%, 100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+    50% {
+        transform: scale(1.05);
+        opacity: 0.9;
+    }
+}
 /* Fin MapView.css */

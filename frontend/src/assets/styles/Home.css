@@ -233,6 +233,10 @@
     background-color: #007bff; /* Blue for Puntos de Hidratación */
 }
 
+.legend-black {
+    background-color: #000000; /* Blue for Puntos de Hidratación */
+}
+
 .map-preview-header h3 {
     color: var(--text-primary);
     font-size: 16px;
@@ -556,6 +560,145 @@
 .consejo-tag[data-categoria="Alimentación"] {
     background: #1abc9c;
     color: white;
+}
+
+/* ================================================
+    BOTONES DE NAVEGACIÓN RÁPIDA EN MAPA
+   ================================================ */
+
+.map-quick-nav {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 12px;
+    margin-top: 12px;
+    padding: 0 4px;
+}
+
+.quick-nav-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 12px 16px;
+    border: none;
+    border-radius: 12px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.quick-nav-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.quick-nav-btn::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0));
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.quick-nav-btn:hover:not(:disabled)::before {
+    opacity: 1;
+}
+
+.quick-nav-btn:active:not(:disabled) {
+    transform: scale(0.98);
+}
+
+/* Botón de Zona Fresca */
+.btn-zona-fresca {
+    background: linear-gradient(135deg, #10b981, #059669);
+    color: white;
+    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+}
+
+.btn-zona-fresca:hover:not(:disabled) {
+    box-shadow: 0 6px 16px rgba(16, 185, 129, 0.4);
+    transform: translateY(-2px);
+}
+
+/* Botón de Punto de Hidratación */
+.btn-punto-hidratacion {
+    background: linear-gradient(135deg, #3b82f6, #2563eb);
+    color: white;
+    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+}
+
+.btn-punto-hidratacion:hover:not(:disabled) {
+    box-shadow: 0 6px 16px rgba(59, 130, 246, 0.4);
+    transform: translateY(-2px);
+}
+
+/* Botón de Limpiar Selección */
+.btn-limpiar {
+    background: linear-gradient(135deg, #64748b, #475569);
+    color: white;
+    box-shadow: 0 4px 12px rgba(100, 116, 139, 0.3);
+}
+
+.btn-limpiar:hover:not(:disabled) {
+    box-shadow: 0 6px 16px rgba(100, 116, 139, 0.4);
+    transform: translateY(-2px);
+}
+
+.btn-limpiar:disabled {
+    background: linear-gradient(135deg, #94a3b8, #64748b);
+}
+
+.btn-icon {
+    font-size: 18px;
+}
+
+.btn-text {
+    font-size: 13px;
+    text-align: center;
+    line-height: 1.3;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+    .map-quick-nav {
+        grid-template-columns: 1fr 1fr;
+    }
+    
+    .btn-limpiar {
+        grid-column: 1 / -1;
+    }
+}
+
+@media (max-width: 768px) {
+    .map-quick-nav {
+        grid-template-columns: 1fr;
+    }
+    
+    .btn-limpiar {
+        grid-column: auto;
+    }
+    
+    .btn-text {
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 480px) {
+    .quick-nav-btn {
+        padding: 10px 12px;
+    }
+    
+    .btn-icon {
+        font-size: 16px;
+    }
+    
+    .btn-text {
+        font-size: 12px;
+    }
 }
 
 /* Fin Home.css */
