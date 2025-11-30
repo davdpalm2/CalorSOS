@@ -27,6 +27,9 @@ import alertasService from "../services/alertasService.js";
 import notificacionesService from "../services/notificacionesService.js";
 import notificacionesGlobalesService from "../services/notificacionesGlobalesService.js";
 
+// Importación de utilidades de distancia
+import { encontrarPuntoMasCercano } from "../utils/distanceUtils";
+
 // Importaciones de datos
 import { consejosData } from "../data/consejosData.js";
 
@@ -44,15 +47,18 @@ export default function Home() {
     // Estado para consejos aleatorios
     const [consejosAleatorios, setConsejosAleatorios] = useState([]);
 
-
-
     // Estados para datos del backend
     const [zonasFrescas, setZonasFrescas] = useState([]);
     const [puntosHidratacion, setPuntosHidratacion] = useState([]);
 
+    // Estado para marcador seleccionado
+    const [markerSeleccionado, setMarkerSeleccionado] = useState(null);
 
-
-
+    // Estados para navegación a puntos más cercanos
+    const [userLocation, setUserLocation] = useState(null);
+    const [routeCoordinates, setRouteCoordinates] = useState(null);
+    const [highlightedMarker, setHighlightedMarker] = useState(null);
+    const [resetViewTrigger, setResetViewTrigger] = useState(0);
 
     // Efecto para cargar zonas frescas y puntos de hidratación
     useEffect(() => {
@@ -166,7 +172,77 @@ export default function Home() {
         ? `⚠️ ALERTA ${alertaActual.nivel_riesgo.toUpperCase()} — Temp: ${alertaActual.temperatura}°C, UV: ${alertaActual.indice_uv}, Humedad: ${alertaActual.humedad}%`
         : "No hay alertas activas en este momento.";
 
+    // Handler para seleccionar marcador
+    const handleSelectMarker = (marker) => {
+        setMarkerSeleccionado(marker);
+    };
 
+    // Efecto para obtener ubicación del usuario
+    useEffect(() => {
+        if ("geolocation" in navigator) {
+            navigator.geolocation.getCurrentPosition(
+                (position) => {
+                    setUserLocation({
+                        lat: position.coords.latitude,
+                        lng: position.coords.longitude,
+                    });
+                },
+                (error) => {
+                    console.error("Error obteniendo ubicación:", error);
+                }
+            );
+        }
+    }, []);
+
+    // Handler para limpiar selección y ruta
+    const handleLimpiarSeleccion = () => {
+        setRouteCoordinates(null);
+        setHighlightedMarker(null);
+        setMarkerSeleccionado(null);
+        
+        // Trigger para resetear la vista del mapa
+        setResetViewTrigger(prev => prev + 1);
+    };
+
+    // Handler para ir a zona fresca más cercana
+    const handleIrZonaFrescaCercana = () => {
+        if (!userLocation || zonasFrescas.length === 0) {
+            alert("No se pudo obtener tu ubicación o no hay zonas frescas disponibles");
+            return;
+        }
+
+        const zonaMasCercana = encontrarPuntoMasCercano(userLocation, zonasFrescas);
+        
+        if (zonaMasCercana) {
+            // Trazar ruta
+            setRouteCoordinates([
+                [userLocation.lat, userLocation.lng],
+                [zonaMasCercana.latitud, zonaMasCercana.longitud]
+            ]);
+            setHighlightedMarker(zonaMasCercana);
+            setMarkerSeleccionado(zonaMasCercana);
+        }
+    };
+
+    // Handler para ir a punto de hidratación más cercano
+    const handleIrPuntoHidratacionCercano = () => {
+        if (!userLocation || puntosHidratacion.length === 0) {
+            alert("No se pudo obtener tu ubicación o no hay puntos de hidratación disponibles");
+            return;
+        }
+
+        const puntoMasCercano = encontrarPuntoMasCercano(userLocation, puntosHidratacion);
+        
+        if (puntoMasCercano) {
+            // Trazar ruta
+            setRouteCoordinates([
+                [userLocation.lat, userLocation.lng],
+                [puntoMasCercano.latitud, puntoMasCercano.longitud]
+            ]);
+            setHighlightedMarker(puntoMasCercano);
+            setMarkerSeleccionado(puntoMasCercano);
+        }
+    };
 
     // Renderizado del componente
     return (
@@ -203,6 +279,10 @@ export default function Home() {
                                         <span className="legend-color legend-blue"></span>
                                         Puntos de Hidratación
                                     </div>
+                                    <div className="legend-item">
+                                        <span className="legend-color legend-black"></span>
+                                        Tu Ubicación
+                                    </div>
                                 </div>
                             </div>
                             <MapView
@@ -210,12 +290,39 @@ export default function Home() {
                                 onExpand={() => setOpenMap(true)}
                                 zonasFrescas={zonasFrescas}
                                 puntosHidratacion={puntosHidratacion}
-                                onSelectMarker={(marker) => {
-                                    // Acercar la vista al marcador seleccionado
-                                    // Esto se manejará dentro de MapView
-                                }}
-                                resetView={false}
+                                onSelectMarker={handleSelectMarker}
+                                resetView={resetViewTrigger}
+                                routeCoordinates={routeCoordinates}
+                                highlightedMarker={highlightedMarker}
                             />
+                            
+                            {/* Botones de navegación rápida */}
+                            <div className="map-quick-nav">
+                                <button 
+                                    className="quick-nav-btn btn-zona-fresca"
+                                    onClick={handleIrZonaFrescaCercana}
+                                    disabled={!userLocation || zonasFrescas.length === 0}
+                                >
+                                    <span className="btn-icon">🌳</span>
+                                    <span className="btn-text">Ver Zona Fresca Más Cercana</span>
+                                </button>
+                                <button 
+                                    className="quick-nav-btn btn-punto-hidratacion"
+                                    onClick={handleIrPuntoHidratacionCercano}
+                                    disabled={!userLocation || puntosHidratacion.length === 0}
+                                >
+                                    <span className="btn-icon">💧</span>
+                                    <span className="btn-text">Ver Punto de Hidratación Más Cercano</span>
+                                </button>
+                                <button 
+                                    className="quick-nav-btn btn-limpiar"
+                                    onClick={handleLimpiarSeleccion}
+                                    disabled={!routeCoordinates && !highlightedMarker}
+                                >
+                                    <span className="btn-icon">🔄</span>
+                                    <span className="btn-text">Limpiar Selección</span>
+                                </button>
+                            </div>
                         </div>
                         <ClimateChart feelsLike={weather?.sensacion_termica} />
                     </section>
@@ -259,10 +366,19 @@ export default function Home() {
 
             </div>
 
-            {/* Modal de mapa completo */}
-            <MapFullscreenModal open={openMap} onClose={() => setOpenMap(false)}>
-                <MapView mini={false} zonasFrescas={zonasFrescas} puntosHidratacion={puntosHidratacion} resetView={false} />
-            </MapFullscreenModal>
+            {/* Modal de mapa completo - SIN CHILDREN, SOLO PROPS */}
+            <MapFullscreenModal 
+                open={openMap} 
+                onClose={() => setOpenMap(false)}
+                zonasFrescas={zonasFrescas}
+                puntosHidratacion={puntosHidratacion}
+                onSelectMarker={handleSelectMarker}
+                zonaSeleccionada={markerSeleccionado?.id_zona ? markerSeleccionado : null}
+                puntoSeleccionado={markerSeleccionado?.id_punto ? markerSeleccionado : null}
+                resetView={resetViewTrigger}
+                routeCoordinates={routeCoordinates}
+                highlightedMarker={highlightedMarker}
+            />
 
         </div>
     );

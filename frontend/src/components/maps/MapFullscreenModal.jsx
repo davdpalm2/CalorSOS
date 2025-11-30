@@ -23,7 +23,15 @@ export default function MapFullscreenModal({
     puntosHidratacion = null,
     resetView = false,
     enableSelection = false,
-    onMapClick = null
+    onMapClick = null,
+    zonaSeleccionada = null,
+    puntoSeleccionado = null,
+    onSelectMarker = null,
+    reportes = [],
+    selectedMarker = null,
+    markerPosition = null,
+    routeCoordinates = null,
+    highlightedMarker = null
 }) {
     // Estado para controlar la visibilidad del mapa
     const [showMap, setShowMap] = useState(false);
@@ -38,6 +46,19 @@ export default function MapFullscreenModal({
         }
     }, [open]);
 
+    // Prevenir scroll del body cuando el modal está abierto
+    useEffect(() => {
+        if (open) {
+            document.body.style.overflow = 'hidden';
+        } else {
+            document.body.style.overflow = 'unset';
+        }
+        
+        return () => {
+            document.body.style.overflow = 'unset';
+        };
+    }, [open]);
+
     // No renderizar si el modal no está abierto
     if (!open) return null;
 
@@ -45,7 +66,7 @@ export default function MapFullscreenModal({
         <div className="mfm-backdrop">
             <div className="mfm-window">
                 <button className="mfm-close-btn" onClick={onClose}>
-                    Cerrar
+                    ✕ Cerrar
                 </button>
 
                 <div className="mfm-map-container">
@@ -60,9 +81,18 @@ export default function MapFullscreenModal({
                                     mini={false}
                                     zonasFrescas={zonasFrescas || []}
                                     puntosHidratacion={puntosHidratacion || []}
+                                    zonaSeleccionada={zonaSeleccionada}
+                                    puntoSeleccionado={puntoSeleccionado}
+                                    onSelectMarker={onSelectMarker || (() => {})}
                                     resetView={resetView}
+                                    reportes={reportes}
+                                    selectedMarker={selectedMarker}
+                                    markerPosition={markerPosition}
                                     enableSelection={enableSelection}
                                     onMapClick={onMapClick}
+                                    showExpandButton={false}
+                                    routeCoordinates={routeCoordinates}
+                                    highlightedMarker={highlightedMarker}
                                 />
                             )}
                         </>
