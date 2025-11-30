@@ -5,8 +5,8 @@
 // Componente principal de enrutamiento de la aplicación
 
 // Importaciones de React Router y contexto
-import { Routes, Route, Navigate } from "react-router-dom";
-import { useContext } from "react";
+import { Routes, Route, Navigate, useNavigate, useLocation } from "react-router-dom";
+import { useContext, useEffect } from "react";
 import { UserContext } from "../context/UserContext.jsx";
 
 // Importaciones de páginas
@@ -26,6 +26,17 @@ import Admin from "../pages/Admin.jsx";
 export default function AppRouter() {
     // Obtener estado del usuario y loading del contexto
     const { user, loading } = useContext(UserContext);
+    const navigate = useNavigate();
+    const location = useLocation();
+    
+    // Rol Admin va directamente a panel de administracion
+    useEffect(() => {
+        if (!user) return;
+
+        if (user.rol === "admin" && location.pathname !== "/admin") {
+            navigate("/admin");
+        }
+    }, [user]);
 
     // Mostrar pantalla de carga mientras se verifica autenticación
     if (loading) {

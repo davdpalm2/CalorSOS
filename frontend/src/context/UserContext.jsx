@@ -107,6 +107,14 @@ export const UserProvider = ({ children }) => {
         const normalized = normalizeUser(me.data);
         setUser(normalized);
 
+        // Usuario con rol admin --> Panel Admin
+        // Usuario normal --> home page
+        if (normalized.rol === "admin") {
+                navigate("/admin");
+            } else {
+                navigate("/");
+            }
+        
         return normalized;
     };
 

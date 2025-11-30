@@ -10,9 +10,6 @@ import React, { useState, useEffect, useContext } from "react";
 // Importación del contexto de usuario
 import { UserContext } from "../context/UserContext";
 
-// Importación de componentes
-import Navbar from "../components/ui/NavbarSmart.jsx";
-
 // Importación de servicios
 import { listarReportes, validarReporte, rechazarReporte } from "../services/reportesService.js";
 import zonasService from "../services/zonasService.js";
@@ -39,7 +36,7 @@ import "../assets/styles/Admin.css";
 export default function Admin() {
 
   // Estados Usuario y pestañas
-  const { user } = useContext(UserContext);
+  const { user, logout } = useContext(UserContext);
   const [activeTab, setActiveTab] = useState("reportes");
 
   // Estados para reportes
@@ -357,7 +354,6 @@ export default function Admin() {
   // RENDER PRINCIPAL
   return (
     <div className="admin-container">
-      <Navbar />
       <div className="admin-content">
         <h1>Panel de Administración</h1>
 
@@ -398,6 +394,12 @@ export default function Admin() {
             onClick={() => setActiveTab("usuarios")}
           >
             Usuarios
+          </button>
+          <button
+            className="pr-btn pr-btn--danger"
+            onClick={logout}
+          >
+            Cerrar Sesión
           </button>
         </div>
 
@@ -594,54 +596,6 @@ export default function Admin() {
           <div className="admin-section">
             <h2>Gestión de Alertas de Calor</h2>
 
-            {/* Formulario para crear alerta */}
-            <div className="admin-form">
-              <h3>Crear Nueva Alerta</h3>
-              <div className="form-row">
-                <input
-                  type="number"
-                  placeholder="Temperatura (°C)"
-                  value={nuevaAlerta.temperatura}
-                  onChange={(e) => setNuevaAlerta({...nuevaAlerta, temperatura: e.target.value})}
-                />
-                <input
-                  type="number"
-                  placeholder="Humedad (%)"
-                  value={nuevaAlerta.humedad}
-                  onChange={(e) => setNuevaAlerta({...nuevaAlerta, humedad: e.target.value})}
-                />
-                <input
-                  type="number"
-                  placeholder="Índice UV"
-                  value={nuevaAlerta.indice_uv}
-                  onChange={(e) => setNuevaAlerta({...nuevaAlerta, indice_uv: e.target.value})}
-                />
-                <select
-                  value={nuevaAlerta.nivel_riesgo}
-                  onChange={(e) => setNuevaAlerta({...nuevaAlerta, nivel_riesgo: e.target.value})}
-                >
-                  <option value="bajo">Bajo</option>
-                  <option value="medio">Medio</option>
-                  <option value="alto">Alto</option>
-                  <option value="extremo">Extremo</option>
-                </select>
-                <input
-                  type="text"
-                  placeholder="Fuente"
-                  value={nuevaAlerta.fuente}
-                  onChange={(e) => setNuevaAlerta({...nuevaAlerta, fuente: e.target.value})}
-                />
-              </div>
-              <div className="form-actions">
-                <button className="admin-btn create" onClick={handleCrearAlerta}>
-                  Crear Alerta
-                </button>
-                <button className="admin-btn create" onClick={handleGenerarAlertaAutomatica}>
-                  Generar Automática
-                </button>
-              </div>
-            </div>
-
             {/* Lista de alertas */}
             {loadingAlertas ? (
               <p>Cargando alertas...</p>
@@ -721,17 +675,6 @@ export default function Admin() {
                       <p>Rol: {usuario.rol}</p>
                     </div>
                     <div className="admin-item-actions">
-                      {usuario.rol !== "admin" && (
-                        <button
-                          className="admin-btn edit"
-                          onClick={() => {
-                            const nuevoRol = usuario.rol === "admin" ? "usuario" : "admin";
-                            handleActualizarUsuario(usuario.id_usuario, { rol: nuevoRol });
-                          }}
-                        >
-                          Cambiar Rol
-                        </button>
-                      )}
                       {usuario.rol !== "admin" && (
                         <button
                           className="admin-btn delete"
